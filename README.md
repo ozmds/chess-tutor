@@ -1,0 +1,1 @@
+# minymal-chess
