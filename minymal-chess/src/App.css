@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+
+.App {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Poppins', serif;
+    font-size: 1rem;
+}
+
+.square {
+    position: relative;
+    width: 80%;
+    max-width: 60vh;
+    border: 1px solid black;
+    margin: 1rem;
+    background-color: dimgray;
+}
+
+.square:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 0.125rem;
+    flex-wrap: wrap;
+}
+.tile {
+    width: 12.5%;
+    height: 12.5%;
+    position: relative;
+    padding: 0.125rem;
+}
+
+.child {
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
+    background-color: cornsilk;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filelegend {
+    position: absolute;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -100%;
+}
+
+.imagelegend {
+    width: 100%;
+}
+
+.textlegend {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ranklegend {
+    position: absolute;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: -100%;
+}
+
+.piece {
+    width: 70%;
+}
