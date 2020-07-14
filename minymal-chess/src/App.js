@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import pawn from './pawn.png';
-import circle from './circle.svg';
+import pawn from './static/pawn.svg';
 
 function App() {
   return (
@@ -11,23 +10,7 @@ function App() {
                 {[8, 7, 6, 5, 4, 3, 2, 1].map((rank, rankindex) => (
                     ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map((file, fileindex) => (
                         <div class="tile">
-                            <div class="child">
-                                {rankindex == 0 
-                                &&
-                                <div class="filelegend">
-                                    <img class="imagelegend" src={circle} />
-                                    <div class="textlegend">
-                                        <strong><em>{file}</em></strong>
-                                    </div>
-                                </div>}
-                                {fileindex == 0
-                                &&
-                                <div class="ranklegend">
-                                    <img class="imagelegend" src={circle} />
-                                    <div class="textlegend">
-                                        <strong><em>{rank}</em></strong>
-                                    </div>
-                                </div>}
+                            <div class="innertile">
                                 <img class="piece" src={pawn} />
                             </div>
                         </div>
