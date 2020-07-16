@@ -43,11 +43,15 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rank: [8, 7, 6, 5, 4, 3, 2, 1],
-            file: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+            rank: this.reverseList([8, 7, 6, 5, 4, 3, 2, 1]),
+            file: this.reverseList(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']),
             board: this.reverseBoard(default_board),
             mapping: piece_mapping
         };
+    }
+
+    reverseList = (list) => {
+        return list.reverse();
     }
 
     reverseBoard = (board) => {
