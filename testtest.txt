@@ -1,0 +1,126 @@
+from flask import Flask, request
+from flask_restful import Resource, Api, reqparse
+from flask_cors import CORS
+from appli import Applitools
+from sendemail import send_email
+
+app = Flask(__name__)
+api = Api(app)
+cors = CORS(app)
+
+
+class TestStory(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('storyID', type=str, required=True)
+        self.parser.add_argument('LOB', type=str, required=True)
+        self.parser.add_argument('match_level', type=str, required=True)
+        self.parser.add_argument('location', type=str, required=True)
+        self.parser.add_argument('parallel', type=str, required=True)
+        self.parser.add_argument(
+            'send_to',
+            type=list,
+            required=True,
+            location='json'
+        )
+        self.parser.add_argument(
+            'URLs',
+            type=list,
+            required=True,
+            location='json'
+        )
+        self.parser.add_argument(
+            'devices',
+            type=list,
+            required=True,
+            location='json'
+        )
+
+    def run_tests(self, batch, match_level, lob, urls, devices, location, parallel, send_to):
+        applitester = Applitools(
+            batch=batch,
+            match_level=match_level,
+            lob=lob,
+            urls=urls,
+            devices=devices,
+            location=location
+        )
+        if parallel == 'True':
+            results = applitester.run_in_parallel()
+        else:
+            results = applitester.run_in_sequence()
+        # send_email(results, send_to)
+
+    def put(self):
+        url_list = request.json['URLs']
+        device_list = request.json['devices']
+        send_to = request.json['send_to']
+        args = self.parser.parse_args()
+        storyID = args['storyID']
+        LOB = args['LOB']
+        match_level = args['match_level']
+        location = args['location']
+        parallel = args['parallel']
+        
+        self.run_tests(storyID, match_level, LOB, url_list, device_list, location, parallel, send_to)
+        return {
+            "message": "Completed Testing On Story " + storyID + "!",
+            "urls": url_list
+        }
+
+    def get(self):
+        return {
+            "message": "This server is working, finally!"
+        }
+
+api.add_resource(TestStory, '/api/teststory')
+
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=5000, debug=True)
+    #app.run()
+    
+    class FieldList(Resource):
+    def __init__(self):
+        pass
+
+    def get(self, object_type):
+        return get_field_list(object_type, SETTINGS_LOCATION + 'rally_mapping.json')
+
+
+class JobList(Resource):
+    def __init__(self):
+        self.server = get_jenkins_server()
+
+    def get(self):
+        return get_all_job_names(self.server)
+
+
+class JobStatus(Resource):
+    def __init__(self):
+        self.server = get_jenkins_server()
+
+    def get(self, job_name):
+        return get_job_status(self.server, job_name)
+
+
+api.add_resource(AgileReport, '/api/agilereport')
+api.add_resource(UpdateData, '/api/updatedata')
+api.add_resource(StoryList, '/api/storylist')
+api.add_resource(SprintList, '/api/sprintlist', '/api/sprintlist/<direction>/<sprintname>')
+api.add_resource(MetricList, '/api/metriclist/<object_type>')
+api.add_resource(FieldList, '/api/fieldlist/<object_type>')
+
+api.add_resource(JobList, '/api/joblist')
+api.add_resource(JobStatus, '/api/jobstatus/<job_name>')
+
+export const getSettingOptions = (updateOptions, endpoint, field, callback = null, parameter = null) => {
+    let settingsPromise = null;
+    if (parameter == null) {
+        settingsPromise = axios.get(`${API_URL}/api/${endpoint}`);
+    } else {
+        settingsPromise = axios.get(`${API_URL}/api/${endpoint}/${parameter}`);
+    }
+    settingsPromise.then((res) => {
+        updateOptions(field, res.data, callback);
+    });
+};
