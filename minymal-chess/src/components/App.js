@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import axios from 'axios';
+import { Flipper, Flipped } from 'react-flip-toolkit'
 import './App.css';
 import black_pawn from '../static/black_pawn.svg';
 import black_bishop from '../static/black_bishop.svg';
@@ -12,78 +14,147 @@ import white_knight from '../static/white_knight.svg';
 import white_rook from '../static/white_rook.svg';
 import white_queen from '../static/white_queen.svg';
 import white_king from '../static/white_king.svg';
+import circle from '../static/circle.svg';
+import rotate from '../static/rotate.svg';
+import target_circle from '../static/target_circle.svg';
 
-const default_board = [
-    ['r',  'n',  'b',  'q',  'k',  'b',  'n',  'r' ],
-    ['p',  'p',  'p',  'p',  'p',  'p',  'p',  'p',],
-    [null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null],
-    ['P',  'P',  'P',  'P',  'P',  'P',  'P',  'P' ],
-    ['R',  'N',  'B',  'Q',  'K',  'B',  'N',  'R' ]
+const pieces = [
+    { key: 'p', image: black_pawn, name: 'black pawn'},
+    { key: 'b', image: black_bishop, name: 'black bishop'},
+    { key: 'n', image: black_knight, name: 'black knight'},
+    { key: 'r', image: black_rook, name: 'black rook'},
+    { key: 'q', image: black_queen, name: 'black queen'},
+    { key: 'k', image: black_king, name: 'black king'},
+    { key: 'P', image: white_pawn, name: 'white pawn'},
+    { key: 'B', image: white_bishop, name: 'white bishop'},
+    { key: 'N', image: white_knight, name: 'white knight'},
+    { key: 'R', image: white_rook, name: 'white rook'},
+    { key: 'Q', image: white_queen, name: 'white queen'},
+    { key: 'K', image: white_king, name: 'white king'}
 ]
 
-const piece_mapping = {
-    p: black_pawn,
-    b: black_bishop,
-    n: black_knight,
-    r: black_rook,
-    q: black_queen,
-    k: black_king,
-    P: white_pawn,
-    B: white_bishop,
-    N: white_knight,
-    R: white_rook,
-    Q: white_queen,
-    K: white_king
-}
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rank: this.reverseList([8, 7, 6, 5, 4, 3, 2, 1]),
-            file: this.reverseList(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']),
-            board: this.reverseBoard(default_board),
-            mapping: piece_mapping
+            board: [],
+            fen: '',
+            playercolor: 'white',
+            moves: [],
+            selected: ''
         };
     }
 
-    reverseList = (list) => {
-        return list.reverse();
+    componentDidMount() {
+        axios.get(`http://localhost:5000/api/initboard`).then((res) => {
+            this.setState({
+                board: res.data.board,
+                fen: res.data.fen
+            });
+        });
     }
 
-    reverseBoard = (board) => {
-        return [...board].map(rank => rank.reverse()).reverse();
+    switchPlayers = () => {
+        this.setState({ playercolor: this.state.playercolor === 'white' ? 'black' : 'white'})
     }
 
-    displayPiece = (rindex, findex) => {
-        const pieceCharacter = this.state.board[rindex][findex];
-        if (pieceCharacter !== null) {
-            const pieceImage = this.state.mapping[pieceCharacter];
+    setSelected = (name, square) => {
+        if (this.state.moves.includes(square)) {
+            axios.put(`http://localhost:5000/api/updateboard`, {
+                fen: this.state.fen, 
+                move: this.state.selected + square,
+                board: this.state.board
+            }).then((res) => {
+                this.setState({
+                    board: res.data.board,
+                    fen: res.data.fen,
+                    moves : [],
+                    selected : ''
+                });
+            });
+        } else {
+            axios.put(`http://localhost:5000/api/movelist`, {
+                fen: this.state.fen, 
+                square: square
+            }).then((res) => {
+                this.setState({ 
+                    moves: res.data,
+                    selected : square
+                });
+            });
+        }
+    }
+
+    displayBoard = () => {
+        let ranks = [8, 7, 6, 5, 4, 3, 2, 1];
+        let files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+        let board = this.state.board;
+        if (this.state.playercolor === 'black') {
+            ranks = ranks.reverse();
+            files = files.reverse();
+            board = [...board].map(rank => rank.reverse()).reverse();
+        }
+        return board.flat().map((piece, index) => {
+            const rindex = Math.floor(index / 8); 
+            const findex = index % 8;
             return (
-                <img class="piece" src={pieceImage} alt="chess piece" />
+                <div key={files[findex] + ranks[rindex]} className="tile">
+                    <div className="innertile">
+                        {this.displayPiece(piece, files[findex] + ranks[rindex])}
+                    </div>
+                </div>
+            )
+        });
+    }
+
+    displayPiece = (pieceKey, square) => {
+        let pieceImage, pieceName;
+        if (pieceKey !== null) {
+            pieceImage = pieces.filter((piece) => piece.key === pieceKey[0])[0].image;
+            pieceName = pieces.filter((piece) => piece.key === pieceKey[0])[0].name;
+            return (
+                <Fragment>
+                    {this.state.moves.includes(square) &&
+                        <img className="targetcircle" src={target_circle} alt={'target circle'} />
+                    }
+                    <Flipped flipId={pieceKey}>
+                        <button onClick={() => this.setSelected(pieceName, square)}>
+                            <img className="piece" src={pieceImage} alt={pieceName} />
+                        </button>
+                    </Flipped>
+                </Fragment>
+            )
+        } else if (this.state.moves.includes(square)) {
+            pieceImage = circle;
+            pieceName = 'circle';
+            return (
+                <button onClick={() => this.setSelected(pieceName, square)}>
+                    <img className="piece" src={pieceImage} alt={pieceName} />
+                </button>
             )
         }
     }
 
+    orientBoard = () => {
+        if (this.state.playercolor === 'black') {
+            return [...this.state.board].map(rank => rank.reverse()).reverse();
+        }
+        return this.state.board;
+    }
+
     render() {
+        console.log(this.state.fen);
         return (
             <div className="App">
-                <div class="square">
-                    <div class="content">
-                        {this.state.rank.map((rank, rindex) => (
-                            this.state.file.map((file, findex) => (
-                                <div data-location={file + rank} class="tile">
-                                    <div class="innertile">
-                                        {this.displayPiece(rindex, findex)}
-                                    </div>
-                                </div>
-                            ))
-                        ))}
-                    </div>
+                <div className="square">
+                    <Flipper className="content" flipKey={this.state.fen}>
+                        {this.displayBoard()}
+                    </Flipper>
                 </div>
+                <button onClick={this.switchPlayers}>
+                    <img className="rotate" src={rotate} alt="chess piece" />
+                </button>
             </div>
         );
     }

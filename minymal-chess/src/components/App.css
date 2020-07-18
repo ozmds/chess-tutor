@@ -16,7 +16,7 @@
     max-width: 60vh;
     border: 1px solid black;
     margin: 1rem;
-    background-color: dimgray;
+    background-color: #696969;
 }
 
 .square:after {
@@ -49,8 +49,34 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+.rotate {
+    position: absolute;
+    top: 1rem; 
+    right: 1rem;
+    width: 2rem;
+}
+
+.targetcircle {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+    outline: none !important;
 }
 
 .piece {
     width: 70%;
+    position: relative;
+    z-index: 2;
 }
