@@ -30,7 +30,7 @@ def update_id_board(parsed_board, id_board):
     changed_pieces = []
     changed_spaces = []
     for i in range(len(id_board)):
-        updated_rank = []    
+        updated_rank = []
         for j in range(len(id_board)):
             piece_id = id_board[i][j]
             parsed_id = parsed_board[i][j]
@@ -45,14 +45,11 @@ def update_id_board(parsed_board, id_board):
                     changed_pieces.append((piece_id))
                 updated_rank.append(None)
         updated_board.append(updated_rank)
-    print(changed_pieces)
-    print(changed_spaces)
     for changed_space in changed_spaces:
         for changed_piece in changed_pieces:
             if changed_piece[0] == changed_space[0]:
                 updated_board[changed_space[1]][changed_space[2]] = changed_piece
                 break
-    print(updated_board)
     return updated_board
 
 
@@ -67,7 +64,7 @@ def init_piece_ids(parsed_board):
                     piece_ids[piece] += 1
                 else:
                     piece_ids[piece] = 1
-                id_rank.append('{}{}{}'.format(piece, str(piece_ids[piece]), 'B' if piece.islower() else 'W'))
+                id_rank.append('{}{}'.format(piece, str(piece_ids[piece])))
             else:
                 id_rank.append(None)
         id_board.append(id_rank)
@@ -119,7 +116,6 @@ class GetMoveList(Resource):
     def put(self):
         args = self.parser.parse_args()
         fen = args['fen']
-        print(fen)
         square = args['square']
         move_list = []
         board = chess.Board(fen)
