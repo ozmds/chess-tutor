@@ -8,16 +8,16 @@
         ],
         "rewrites": [
             {
-                "source": "/chess{,/**}",
+                "source": "/chess/api/**",
                 "run": {
-                    "serviceId": "chessui",
+                    "serviceId": "chessapi",
                     "region": "us-east1"
                 }
             },
             {
-                "source": "/api/**",
+                "source": "/chess{,/**}",
                 "run": {
-                    "serviceId": "chessapi",
+                    "serviceId": "chessui",
                     "region": "us-east1"
                 }
             },
