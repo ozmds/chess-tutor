@@ -46,7 +46,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://athavan.dev/api/initboard').then((res) => {
+        axios.get('https://athavan.dev/chess/api/initboard').then((res) => {
             this.setState({
                 board: res.data.board,
                 fen: res.data.fen
@@ -60,7 +60,7 @@ class App extends Component {
 
     setSelected = (name, square) => {
         if (this.state.moves.includes(square)) {
-            axios.put('https://athavan.dev/api/updateboard', {
+            axios.put('https://athavan.dev/chess/api/updateboard', {
                 fen: this.state.fen,
                 move: this.state.selected + square,
                 board: this.state.board
@@ -73,7 +73,7 @@ class App extends Component {
                 });
             });
         } else {
-            axios.put('https://athavan.dev/api/movelist', {
+            axios.put('https://athavan.dev/chess/api/movelist', {
                 fen: this.state.fen,
                 square
             }).then((res) => {

@@ -132,11 +132,9 @@ class GetMoveList(Resource):
         return move_list
 
 
-api.add_resource(InitBoard, '/api/initboard')
-api.add_resource(UpdateBoard, '/api/updateboard')
-api.add_resource(GetMoveList, '/api/movelist')
+api.add_resource(InitBoard, '/chess/api/initboard')
+api.add_resource(UpdateBoard, '/chess/api/updateboard')
+api.add_resource(GetMoveList, '/chess/api/movelist')
 
 if __name__ == '__main__':
     serve(app, host='0.0.0.0', port='5000')
-    # app.run(threaded=True, host='0.0.0.0', port=5000)
-    # app.run()
