@@ -1,4 +1,3 @@
-## Composes project using docker-compose
 dev:
 	docker-compose -f deployments/docker-compose.yml build
 	docker-compose -f deployments/docker-compose.yml down -v
@@ -20,16 +19,23 @@ deploy:
 firebase: 
 	firebase deploy
 
-## projectID.web.app/helloworld 
-## projectID.firebaseapp.com/helloworld
-## custom-domain/helloworld
+list_running_containers:
+	docker ps -a
 
-## gcloud run deploy SERVICE --image gcr.io/PROJECT-ID/helloworld --platform managed --port 5000
+list_all_images:
+	docker image ls
 
-## remove docker image and docker container
-## docker rmi [IMAGE_ID] [IMAGE_ID]
-## docker rm [IMAGE_ID] [IMAGE_ID]
-## docker image ls
-## docker ps -a
+remove_image: 
+	docker rmi $(image)
 
-## https://minymal-chess.web.app
+remove_container:
+	docker rm $(container)
+
+remove_all_images:
+	docker rmi $(docker images -q)
+
+stop_all_containers:
+	docker stop $(docker ps -a -q)
+
+delete_all_stopped_containers:
+	docker rm $(docker ps -a -q)
