@@ -20,6 +20,13 @@
                     "serviceId": "chessapi",
                     "region": "us-east1"
                 }
+            },
+            {
+                "source": "**",
+                "run": {
+                    "serviceId": "chessui",
+                    "region": "us-east1"
+                }
             }
         ]
     }
