@@ -1,4 +1,6 @@
 FROM node:13
-ADD minymal-chess/ /app
 WORKDIR /app
+COPY ./minymal-chess/package*.json /app/
+RUN npm install
+COPY ./minymal-chess/ /app/
 CMD npm start
