@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
+from waitress import serve
 import chess
 import random
 
@@ -113,6 +114,11 @@ class GetMoveList(Resource):
         self.parser.add_argument('fen', type=str, required=True)
         self.parser.add_argument('square', type=str, required=True)
 
+    def get(self):
+        return {
+            'app': 'THIS IS WORKING'
+        }
+
     def put(self):
         args = self.parser.parse_args()
         fen = args['fen']
@@ -131,5 +137,6 @@ api.add_resource(UpdateBoard, '/api/updateboard')
 api.add_resource(GetMoveList, '/api/movelist')
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    serve(app, host='0.0.0.0', port='5000')
+    # app.run(threaded=True, host='0.0.0.0', port=5000)
     # app.run()

@@ -1,0 +1,16 @@
+version: "2"
+services:
+    app:
+        container_name: minymal-chess-api
+        build:
+            context: ../
+            dockerfile: deployments/chessapi/Dockerfile
+        ports:
+            - "5000:5000"
+    ui:
+        container_name: minymal-chess-ui
+        build:
+            context: ../
+            dockerfile: deployments/chessui/prod/Dockerfile
+        ports:
+            - "80:80"
