@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
-import styles from './App.module.css';
 import Board from '../Board/Board';
+
+const StyledApp = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Redressed', serif;
+    font-size: 1rem;
+`;
 
 class App extends Component {
     constructor(props) {
@@ -11,9 +21,12 @@ class App extends Component {
 
     render() {
         return (
-            <div className={styles.app}>
+            <StyledApp>
+                <h1>{'Chess Tutor'}</h1>
                 <Board board={this.state.board} moves={this.state.moves} />
-            </div>
+                <h2>{'Game Has Ended'}</h2>
+                <button className='btn btn-primary'>{'Start Over'}</button>
+            </StyledApp>
         );
     }
 }

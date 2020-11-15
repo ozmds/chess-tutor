@@ -1,10 +1,51 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import { Flipper } from 'react-flip-toolkit';
 
 import Square from '../Square/Square';
-import styles from './Board.module.css';
 import { initBoard, updateBoard } from './board_helper';
+
+const StyledSquare = styled.div`
+    position: relative;
+    width: 80%;
+    max-width: 60vh;
+    border: 1px solid black;
+    margin: 1rem;
+    background-color: #696969;
+    &:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
+`;
+
+const StyledTile = styled.div`
+    width: 12.5%;
+    height: 12.5%;
+    position: relative;
+    padding: 0.125rem;
+`;
+
+const StyledInnerTile = styled.div`
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
+    background-color: cornsilk;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+`;
+
+const StyledFlipper = styled(Flipper)`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 0.125rem;
+    flex-wrap: wrap;
+`;
 
 class Board extends Component {
     constructor(props) {
@@ -83,26 +124,26 @@ class Board extends Component {
     render() {
         const { ranks, files } = this.state;
         return (
-            <div className={styles.square}>
-                <Flipper className={styles.content} flipKey={this.state.fen}>
+            <StyledSquare>
+                <StyledFlipper flipKey={this.state.fen}>
                     {this.state.board.flat().map((piece, index) => {
                         const rindex = Math.floor(index / 8);
                         const findex = index % 8;
                         return (
-                            <div key={files[findex] + ranks[rindex]} className={styles.tile}>
-                                <div className={styles.innertile}>
+                            <StyledTile key={files[findex] + ranks[rindex]}>
+                                <StyledInnerTile>
                                     <Square
                                         pieceID={piece}
                                         squareID={files[findex] + ranks[rindex]}
                                         moves={this.state.moves.current}
                                         selectSquare={this.selectSquare}
                                     />
-                                </div>
-                            </div>
+                                </StyledInnerTile>
+                            </StyledTile>
                         );
                     })}
-                </Flipper>
-            </div>
+                </StyledFlipper>
+            </StyledSquare>
         );
     }
 }
