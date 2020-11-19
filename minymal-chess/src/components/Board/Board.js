@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Flipper } from 'react-flip-toolkit';
+import PropTypes from 'prop-types';
 
 import Square from '../Square/Square';
 import { initBoard, updateBoard } from './board_helper';
@@ -89,7 +90,10 @@ class Board extends Component {
                     fen: res.data.fen,
                     moves,
                     selected: ''
-                }, () => setTimeout(this.computerMove, 1000));
+                }, () => this.props.setGameOver(
+                    res.data.game_over,
+                    () => setTimeout(this.computerMove, 1000)
+                ));
             });
         } else {
             const moves = { ...this.state.moves };
@@ -117,7 +121,7 @@ class Board extends Component {
                 fen: res.data.fen,
                 moves,
                 selected: ''
-            });
+            }, () => this.props.setGameOver(res.data.game_over));
         });
     }
 
@@ -147,5 +151,9 @@ class Board extends Component {
         );
     }
 }
+
+Board.propTypes = {
+    setGameOver: PropTypes.func
+};
 
 export default Board;

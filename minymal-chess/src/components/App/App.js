@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Board from '../Board/Board';
+import RestartModal from '../RestartModal/RestartModal';
 
 const StyledApp = styled.div`
     display: flex;
@@ -16,16 +17,35 @@ const StyledApp = styled.div`
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            gameOver: false
+        };
+    }
+
+    setGameOver = (gameOver, callback = null) => {
+        if (gameOver) {
+            this.setState({ gameOver });
+        } else {
+            this.setState({ gameOver }, callback);
+        }
     }
 
     render() {
         return (
             <StyledApp>
                 <h1>{'Chess Tutor'}</h1>
-                <Board board={this.state.board} moves={this.state.moves} />
-                <h2>{'Game Has Ended'}</h2>
-                <button className='btn btn-primary'>{'Start Over'}</button>
+                <Board
+                    setGameOver={this.setGameOver}
+                />
+                <button className='btn btn-primary'>
+                    {'Restart Game'}
+                </button>
+                {this.state.gameOver
+                    && <RestartModal
+                        header={'Game Over'}
+                        message={'The CPU won the game this time. Try again?'}
+                    />
+                }
             </StyledApp>
         );
     }

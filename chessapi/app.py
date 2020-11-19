@@ -50,7 +50,8 @@ class UpdateBoard(Resource):
         board.push(chess.Move.from_uci(move))
         return {
             'fen': board.fen(),
-            'moves': get_move_list(board)
+            'moves': get_move_list(board),
+            'game_over': board.is_game_over()
         }
 
 
@@ -67,7 +68,8 @@ class CPUMove(Resource):
         board.push(list(board.legal_moves)[random_index])
         return {
             'fen': board.fen(),
-            'moves': get_move_list(board)
+            'moves': get_move_list(board),
+            'game_over': board.is_game_over()
         }
 
 
