@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Flipper } from 'react-flip-toolkit';
@@ -7,11 +7,12 @@ import PropTypes from 'prop-types';
 import Square from '../Square/Square';
 import { initBoard, updateBoard } from './board_helper';
 
+const isLightTile = (id, rowLength) => (Math.floor(id / rowLength) % 2 === 0 && id % 2 === 0) || (Math.floor(id / rowLength) % 2 === 1 && id % 2 === 1);
+
 const StyledSquare = styled.div`
     position: relative;
     width: 80%;
     max-width: 60vh;
-    border: 1px solid black;
     margin: 1rem;
     background-color: #696969;
     &:after {
@@ -21,22 +22,46 @@ const StyledSquare = styled.div`
     }
 `;
 
+const StyledCaptureSquare = styled.div`
+    position: relative;
+    width: 80%;
+    max-width: 15vh;
+    margin: 1rem;
+    background-color: #696969;
+    &:after {
+        content: "";
+        display: block;
+        padding-bottom: 400%;
+    }
+`;
+
 const StyledTile = styled.div`
     width: 12.5%;
     height: 12.5%;
     position: relative;
-    padding: 0.125rem;
-`;
-
-const StyledInnerTile = styled.div`
-    border: 1px solid black;
-    height: 100%;
-    width: 100%;
-    background-color: cornsilk;
+    background-color: ${props => isLightTile(props.id, 8) ? 'cornsilk' : '#b5721d' };
     display: flex;
     align-items: center;
     justify-content: center;
+`;
+
+const StyledCaptureTile = styled.div`
+    width: 50%;
+    height: 12.5%;
     position: relative;
+    background-color: ${props => isLightTile(props.id, 2) ? 'cornsilk' : '#b5721d' };
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const StyledContainer = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 0.75rem;
+    flex-wrap: wrap;
 `;
 
 const StyledFlipper = styled(Flipper)`
@@ -44,7 +69,7 @@ const StyledFlipper = styled(Flipper)`
     width: 100%;
     height: 100%;
     display: flex;
-    padding: 0.125rem;
+    padding: 0.75rem;
     flex-wrap: wrap;
 `;
 
@@ -128,26 +153,54 @@ class Board extends Component {
     render() {
         const { ranks, files } = this.state;
         return (
-            <StyledSquare>
-                <StyledFlipper flipKey={this.state.fen}>
-                    {this.state.board.flat().map((piece, index) => {
-                        const rindex = Math.floor(index / 8);
-                        const findex = index % 8;
-                        return (
-                            <StyledTile key={files[findex] + ranks[rindex]}>
-                                <StyledInnerTile>
+            <Fragment>
+                <StyledCaptureSquare>
+                    <StyledContainer>
+                        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((piece) => (
+                            <StyledCaptureTile key={piece} id={piece}>
+                                <Square
+                                    pieceID={'K1'}
+                                    squareID={files[0] + ranks[0]}
+                                    moves={this.state.moves.current}
+                                    selectSquare={this.selectSquare}
+                                />
+                            </StyledCaptureTile>
+                        ))}
+                    </StyledContainer>
+                </StyledCaptureSquare>
+                <StyledSquare>
+                    <StyledFlipper flipKey={this.state.fen}>
+                        {this.state.board.flat().map((piece, index) => {
+                            const rindex = Math.floor(index / 8);
+                            const findex = index % 8;
+                            return (
+                                <StyledTile id={index} key={files[findex] + ranks[rindex]}>
                                     <Square
                                         pieceID={piece}
                                         squareID={files[findex] + ranks[rindex]}
                                         moves={this.state.moves.current}
                                         selectSquare={this.selectSquare}
                                     />
-                                </StyledInnerTile>
-                            </StyledTile>
-                        );
-                    })}
-                </StyledFlipper>
-            </StyledSquare>
+                                </StyledTile>
+                            );
+                        })}
+                    </StyledFlipper>
+                </StyledSquare>
+                <StyledCaptureSquare>
+                    <StyledContainer>
+                        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((piece) => (
+                            <StyledCaptureTile key={piece} id={piece}>
+                                <Square
+                                    pieceID={'K1'}
+                                    squareID={files[0] + ranks[0]}
+                                    moves={this.state.moves.current}
+                                    selectSquare={this.selectSquare}
+                                />
+                            </StyledCaptureTile>
+                        ))}
+                    </StyledContainer>
+                </StyledCaptureSquare>
+            </Fragment>
         );
     }
 }
