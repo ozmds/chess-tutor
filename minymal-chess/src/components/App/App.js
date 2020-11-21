@@ -25,31 +25,11 @@ const StyledBoardSection = styled.div`
 const ScoreBox = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-direction: row;
     width: 80%;
     max-width: 60vh;
-    padding: 1rem;
 `;
-
-/*
-    position: relative;
-    width: 20%;
-    &:after {
-        content: "";
-        display: block;
-        padding-bottom: 100%;
-    }
-    > div {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-*/
 
 const PlayerScore = styled.div`
     border: 0.25rem solid #696969;
@@ -76,26 +56,20 @@ class App extends Component {
         }
     }
 
-    /*
-    <ScoreBox>
-        <PlayerScore>
-            <h3>{'White'}</h3>
-            <h3>29</h3>
-        </PlayerScore>
-        <h1>1 - 0</h1>
-        <PlayerScore>
-            <h3>{'Black'}</h3>
-            <h3>29</h3>
-        </PlayerScore>
-    </ScoreBox>
-    */
-
     render() {
         return (
             <StyledApp>
-                <h1>{'Chess Tutor'}</h1>
+                <h1>{'Chess Mirror'}</h1>
                 <ScoreBox>
+                    <PlayerScore>
+                        <h3>{'White'}</h3>
+                        <h3>29</h3>
+                    </PlayerScore>
                     <h1>1 - 0</h1>
+                    <PlayerScore>
+                        <h3>{'Black'}</h3>
+                        <h3>29</h3>
+                    </PlayerScore>
                 </ScoreBox>
                 <StyledBoardSection>
                     <Board
