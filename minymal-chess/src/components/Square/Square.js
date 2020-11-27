@@ -64,12 +64,14 @@ const Square = (props) => {
     }
     if (props.moves.includes(props.squareID)) {
         return (
-            <PlainButton onClick={() => props.selectSquare(props.squareID)}>
-                <ChessPiece src={circle} alt={'circle'} />
-            </PlainButton>
+            <StyledSquare id={props.id} key={props.key}>
+                <PlainButton onClick={() => props.selectSquare(props.squareID)}>
+                    <ChessPiece src={circle} alt={'circle'} />
+                </PlainButton>
+            </StyledSquare>
         );
     }
-    return null;
+    return <StyledSquare id={props.id} key={props.key} />;
 };
 
 Square.propTypes = {

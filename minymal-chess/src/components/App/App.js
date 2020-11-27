@@ -8,7 +8,7 @@ class App extends Component {
             modal: '',
             gameOver: '',
             fen: '',
-            level: '',
+            level: '1',
             colour: ''
         };
     }
@@ -21,12 +21,14 @@ class App extends Component {
         this.setState({ modal });
     }
 
-    setGameOver = (gameOver) => {
-        this.setState({ gameOver });
+    setGameOver = (gameOver, callback = null) => {
+        this.setState({ gameOver }, callback);
     }
 
     startGame = (colour, level) => {
-        this.setState({ colour, level });
+        this.setState({ colour, level }, () => {
+            this.setState({ modal: '' });
+        });
     }
 
     render() {

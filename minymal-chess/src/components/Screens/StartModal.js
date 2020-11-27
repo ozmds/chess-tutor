@@ -7,8 +7,8 @@ class StartModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            playerColour: '',
-            computerLevel: ''
+            playerColour: 'white',
+            computerLevel: '1'
         };
     }
 
