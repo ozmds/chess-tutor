@@ -1,4 +1,4 @@
-const convertRankToList = (rank) => {
+export const convertRankToList = (rank) => {
     const parsedRank = [];
     for (let i = 0; i < rank.length; i += 1) {
         if (Number.isNaN(Number(rank[i]))) {

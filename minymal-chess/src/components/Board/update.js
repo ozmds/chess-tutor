@@ -1,4 +1,4 @@
-import { convertFenToBoard } from './boardHelper';
+import { convertFenToBoard } from './helper';
 
 const updateBoard = (fen, oldBoard) => {
     const newBoard = convertFenToBoard(fen);

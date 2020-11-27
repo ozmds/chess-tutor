@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Flipped } from 'react-flip-toolkit';
 import PropTypes from 'prop-types';
 
-import pieces from './pieceLibrary';
+import pieces from './library';
 import circle from '../../static/circle.svg';
 import targetCircle from '../../static/target_circle.svg';
 

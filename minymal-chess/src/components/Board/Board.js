@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import { initBoard } from './boardHelper';
-import updateBoard from './updateBoard';
+import { initBoard } from './helper';
+import updateBoard from './update';
 import PureBoard from './PureBoard';
 
 class Board extends Component {
