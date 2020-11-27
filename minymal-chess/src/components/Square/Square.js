@@ -1,11 +1,23 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Flipped } from 'react-flip-toolkit';
 import PropTypes from 'prop-types';
 
-import pieces from './piece_library';
+import pieces from './pieceLibrary';
 import circle from '../../static/circle.svg';
 import targetCircle from '../../static/target_circle.svg';
+
+const isLightTile = (id, rowLength) => (Math.floor(id / rowLength) % 2 === 0 && id % 2 === 0) || (Math.floor(id / rowLength) % 2 === 1 && id % 2 === 1);
+
+const StyledSquare = styled.div`
+    width: 12.5%;
+    height: 12.5%;
+    position: relative;
+    background-color: ${(props) => (isLightTile(props.id, 8) ? 'cornsilk' : '#b5721d')};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
 
 const PlainButton = styled.button`
     background: none;
@@ -38,7 +50,7 @@ const Square = (props) => {
     if (props.pieceID !== null) {
         const piece = getPiece(props.pieceID);
         return (
-            <Fragment>
+            <StyledSquare id={props.id} key={props.key}>
                 {props.moves.includes(props.squareID)
                     && <TargetCircle src={targetCircle} alt={'target circle'} />
                 }
@@ -47,7 +59,7 @@ const Square = (props) => {
                         <ChessPiece src={piece.image} alt={piece.name} />
                     </PlainButton>
                 </Flipped>
-            </Fragment>
+            </StyledSquare>
         );
     }
     if (props.moves.includes(props.squareID)) {
@@ -61,6 +73,8 @@ const Square = (props) => {
 };
 
 Square.propTypes = {
+    id: PropTypes.number,
+    key: PropTypes.string,
     pieceID: PropTypes.string,
     squareID: PropTypes.string,
     moves: PropTypes.array,
