@@ -21,25 +21,25 @@ const InfoBox = styled.div`
     flex-basis: 0;
 `;
 
-const getMoveCountFromFen = (fen) => parseInt(fen.split(' ')[5], 10);
+const getMoveCountFromFen = (fen) => (fen ? parseInt(fen.split(' ')[5], 10) : null);
 
 const Header = (props) => (
     <StyledHeader>
-        <InfoBox>
-            <h3>{'Move'}</h3>
-            <h3>{getMoveCountFromFen(props.fen)}</h3>
+        <InfoBox id={'move-counter'}>
+            <h2 className='h3'>{'Move'}</h2>
+            <p className='h3'>{getMoveCountFromFen(props.fen)}</p>
         </InfoBox>
-        <h1>{'Minimalist Chess'}</h1>
-        <InfoBox>
-            <h3>{'Level'}</h3>
-            <h3>{`${props.level}`}</h3>
+        <h1 id={'header'}>{'Minimalist Chess'}</h1>
+        <InfoBox id={'level-indicator'}>
+            <h2 className='h3'>{'Level'}</h2>
+            <p className='h3'>{`${props.level}`}</p>
         </InfoBox>
     </StyledHeader>
 );
 
 Header.propTypes = {
     fen: PropTypes.string,
-    level: PropTypes.number
+    level: PropTypes.string
 };
 
 export default Header;

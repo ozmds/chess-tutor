@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import Header from './Header';
 
 test('renders correctly', () => {
@@ -9,6 +9,20 @@ test('renders correctly', () => {
             header={'Test Header'}
         />
     );
-    const headerElement = getByText('Test Header');
-    expect(headerElement).toBeInTheDocument();
+    const element = getByText('Test Header');
+    expect(element).toBeInTheDocument();
 });
+
+/*
+test('click close button', () => {
+    const { getByText } = render(
+        <Header
+            onClose={() => alert('Test Modal Header')}
+            header={'Test Header'}
+        />
+    );
+    const element = getByText('X');
+    fireEvent.click(element);
+    expect(screen.getByRole('alert')).toHaveTextContent('Oops, failed to fetch!');
+});
+*/

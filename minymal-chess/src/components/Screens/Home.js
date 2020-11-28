@@ -29,7 +29,7 @@ const Home = (props) => (
             setRestart={props.setRestart}
             setFen={props.setFen}
         />
-        <button className='btn btn-primary' onClick={() => props.setModal('restart')}>
+        <button id={'restart'} className='btn btn-primary' onClick={() => props.setModal('restart')}>
             {'Restart Game'}
         </button>
         {props.modal === 'restart'

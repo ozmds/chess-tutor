@@ -40,15 +40,16 @@ const PureBoard = (props) => {
     const { ranks, files } = props;
     return (
         <StyledBoardSection>
-            <StyledSquare>
+            <StyledSquare id={'board'}>
                 <StyledFlipper flipKey={props.fen}>
                     {props.board.flat().map((piece, index) => {
                         const rindex = Math.floor(index / 8);
                         const findex = index % 8;
                         return (
                             <Square
-                                id={index}
-                                key={files[findex] + ranks[rindex]}
+                                id={files[findex] + ranks[rindex]}
+                                key={index}
+                                number={index}
                                 pieceID={piece}
                                 squareID={files[findex] + ranks[rindex]}
                                 moves={props.moves.current}

@@ -7,13 +7,15 @@ import pieces from './library';
 import circle from '../../static/circle.svg';
 import targetCircle from '../../static/target_circle.svg';
 
-const isLightTile = (id, rowLength) => (Math.floor(id / rowLength) % 2 === 0 && id % 2 === 0) || (Math.floor(id / rowLength) % 2 === 1 && id % 2 === 1);
+const isLightTile = (id, rowLength) => {
+    return (Math.floor(id / rowLength) % 2 === 0 && id % 2 === 0) || (Math.floor(id / rowLength) % 2 === 1 && id % 2 === 1);
+};
 
 const StyledSquare = styled.div`
     width: 12.5%;
     height: 12.5%;
     position: relative;
-    background-color: ${(props) => (isLightTile(props.id, 8) ? 'cornsilk' : '#b5721d')};
+    background-color: ${(props) => (isLightTile(props.number, 8) ? 'cornsilk' : '#b5721d')};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +52,7 @@ const Square = (props) => {
     if (props.pieceID !== null) {
         const piece = getPiece(props.pieceID);
         return (
-            <StyledSquare id={props.id} key={props.key}>
+            <StyledSquare id={props.id} number={props.number}>
                 {props.moves.includes(props.squareID)
                     && <TargetCircle src={targetCircle} alt={'target circle'} />
                 }
@@ -64,19 +66,19 @@ const Square = (props) => {
     }
     if (props.moves.includes(props.squareID)) {
         return (
-            <StyledSquare id={props.id} key={props.key}>
+            <StyledSquare id={props.id} number={props.number}>
                 <PlainButton onClick={() => props.selectSquare(props.squareID)}>
                     <ChessPiece src={circle} alt={'circle'} />
                 </PlainButton>
             </StyledSquare>
         );
     }
-    return <StyledSquare id={props.id} key={props.key} />;
+    return <StyledSquare id={props.id} number={props.number} />;
 };
 
 Square.propTypes = {
-    id: PropTypes.number,
-    key: PropTypes.string,
+    id: PropTypes.string,
+    number: PropTypes.number,
     pieceID: PropTypes.string,
     squareID: PropTypes.string,
     moves: PropTypes.array,
