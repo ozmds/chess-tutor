@@ -6,6 +6,7 @@ import Board from '../Board/Board';
 import RestartModal from './RestartModal';
 import StartModal from './StartModal';
 import Header from '../Header/Header';
+import getMoveCountFromFen from './scripts/getMoveCountFromFen';
 
 const StyledHome = styled.div`
     display: flex;
@@ -20,7 +21,7 @@ const StyledHome = styled.div`
 const Home = (props) => (
     <StyledHome>
         <Header
-            fen={props.fen}
+            moveCount={getMoveCountFromFen(props.fen)}
             level={props.level}
         />
         <Board
@@ -28,6 +29,7 @@ const Home = (props) => (
             restart={props.restart}
             setRestart={props.setRestart}
             setFen={props.setFen}
+            colour={props.colour}
         />
         <button id={'restart'} className='btn btn-primary' onClick={() => props.setModal('restart')}>
             {'Restart Game'}
@@ -58,7 +60,8 @@ Home.propTypes = {
     setModal: PropTypes.func,
     setRestart: PropTypes.func,
     setGameOver: PropTypes.func,
-    startGame: PropTypes.func
+    startGame: PropTypes.func,
+    colour: PropTypes.string
 };
 
 export default Home;

@@ -16,7 +16,7 @@ const Background = styled.div`
 
 const ModalContainer = (props) => (
     <Background>
-        <div className='modal-dialog'>
+        <div id={props.id} className='modal-dialog'>
             <div className='modal-content'>
                 {props.children}
             </div>
@@ -25,6 +25,7 @@ const ModalContainer = (props) => (
 );
 
 ModalContainer.propTypes = {
+    id: PropTypes.string,
     children: PropTypes.node
 };
 

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import { initBoard } from './helper';
-import updateBoard from './update';
+import initBoard from './scripts/initBoard';
+import updateBoard from './scripts/updateBoard';
 import PureBoard from './PureBoard';
 
 class Board extends Component {
@@ -26,9 +26,20 @@ class Board extends Component {
         this.initBoard();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         if (this.props.restart) {
             this.props.setRestart(false, this.initBoard);
+        }
+        if (this.props.colour !== prevProps.colour) {
+            const ranks = [...this.state.ranks];
+            const files = [...this.state.files];
+            ranks.reverse();
+            files.reverse();
+            this.setState({
+                ranks,
+                files,
+                board: updateBoard(this.state.fen, this.state.board, this.props.colour)
+            });
         }
     }
 
@@ -38,7 +49,7 @@ class Board extends Component {
             moves.possible = res.data.moves;
             this.props.setFen(res.data.fen);
             this.setState({
-                board: initBoard(res.data.fen),
+                board: initBoard(res.data.fen, this.props.colour),
                 fen: res.data.fen,
                 moves
             });
@@ -56,7 +67,7 @@ class Board extends Component {
                 moves.current = [];
                 this.props.setFen(res.data.fen);
                 this.setState({
-                    board: updateBoard(res.data.fen, this.state.board),
+                    board: updateBoard(res.data.fen, this.state.board, this.props.colour),
                     fen: res.data.fen,
                     moves,
                     selected: ''
@@ -90,7 +101,7 @@ class Board extends Component {
             moves.current = [];
             this.props.setFen(res.data.fen);
             this.setState({
-                board: updateBoard(res.data.fen, this.state.board),
+                board: updateBoard(res.data.fen, this.state.board, this.props.colour),
                 fen: res.data.fen,
                 moves,
                 selected: ''
@@ -116,7 +127,8 @@ Board.propTypes = {
     setGameOver: PropTypes.func,
     restart: PropTypes.bool,
     setRestart: PropTypes.func,
-    setFen: PropTypes.func
+    setFen: PropTypes.func,
+    colour: PropTypes.string
 };
 
 export default Board;

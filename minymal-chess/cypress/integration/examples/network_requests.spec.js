@@ -126,7 +126,7 @@ context('Network Requests', () => {
     cy.get('.network-btn').click()
 
     // https://on.cypress.io/wait
-    cy.wait('@getComment').its('response.statusCode').should('be.oneOf', [200, 304])
+    cy.wait('@getComment').its('response.statusCode').should('equal', 200);
 
     // Listen to POST to comments
     cy.intercept('POST', '**/comments').as('postComment')

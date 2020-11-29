@@ -1,22 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
-
-const getMessage = (gameOver) => {
-    switch (gameOver) {
-    case 'player':
-        return 'You beat the computer! Play again?';
-    case 'computer':
-        return 'The computer won the game this time. Try again?';
-    case 'draw':
-        return 'The game ended in a draw. Try again?';
-    default:
-        return 'Do you want to restart the game?';
-    }
-};
+import getMessage from './scripts/getMessage';
 
 const RestartModal = (props) => (
     <Modal
+        id={'restart-modal'}
         header={props.gameOver ? 'Game Over' : 'Restart'}
         onClose={() => props.setModal('')}
         action={() => props.setModal('start')}

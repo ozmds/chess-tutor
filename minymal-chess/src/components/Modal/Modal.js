@@ -4,7 +4,7 @@ import ModalHeader from './Header';
 import ModalContainer from './Container';
 
 const Modal = (props) => (
-    <ModalContainer>
+    <ModalContainer id={props.id}>
         <ModalHeader
             header={props.header}
             onClose={props.onClose}
@@ -21,6 +21,7 @@ const Modal = (props) => (
 );
 
 Modal.propTypes = {
+    id: PropTypes.string,
     header: PropTypes.string,
     onClose: PropTypes.func,
     children: PropTypes.node,

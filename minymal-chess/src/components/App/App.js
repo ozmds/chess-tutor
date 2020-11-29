@@ -9,7 +9,7 @@ class App extends Component {
             gameOver: '',
             fen: '',
             level: '1',
-            colour: ''
+            colour: 'white'
         };
     }
 
@@ -44,6 +44,7 @@ class App extends Component {
                 setRestart={this.setRestart}
                 setGameOver={this.setGameOver}
                 startGame={this.startGame}
+                colour={this.state.colour}
             />
         );
     }

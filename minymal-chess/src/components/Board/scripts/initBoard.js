@@ -1,26 +1,6 @@
-export const convertRankToList = (rank) => {
-    const parsedRank = [];
-    for (let i = 0; i < rank.length; i += 1) {
-        if (Number.isNaN(Number(rank[i]))) {
-            parsedRank.push(rank[i]);
-        } else {
-            let count = 0;
-            while (count < parseInt(rank[i], 10)) {
-                parsedRank.push(null);
-                count += 1;
-            }
-        }
-    }
-    return parsedRank;
-};
+import { convertFenToBoard, reverseBoard } from './boardConversion';
 
-export const convertFenToBoard = (fen) => {
-    const board = fen.split(' ')[0];
-    const ranks = board.split('/');
-    return ranks.map((rank) => convertRankToList(rank));
-};
-
-export const initBoard = (fen) => {
+const initBoard = (fen, playerColour) => {
     const board = convertFenToBoard(fen);
     const pieceIDs = {};
     const idBoard = [];
@@ -42,5 +22,10 @@ export const initBoard = (fen) => {
         }
         idBoard.push(idRank);
     }
+    if (playerColour === 'black') {
+        return reverseBoard(idBoard);
+    }
     return idBoard;
 };
+
+export default initBoard;

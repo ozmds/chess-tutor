@@ -16,6 +16,7 @@ class StartModal extends Component {
         const { playerColour, computerLevel } = this.state;
         return (
             <Modal
+                id={'start-modal'}
                 header={"Let's Start"}
                 onClose={() => this.props.setModal('')}
                 action={() => this.props.startGame(playerColour, computerLevel)}

@@ -1,6 +1,6 @@
-import { convertFenToBoard } from './helper';
+import { convertFenToBoard, reverseBoard } from './boardConversion';
 
-const updateBoard = (fen, oldBoard) => {
+const updateBoard = (fen, oldBoard, playerColour) => {
     const newBoard = convertFenToBoard(fen);
     const updatedBoard = [];
     const missing = [];
@@ -32,6 +32,9 @@ const updateBoard = (fen, oldBoard) => {
                 updatedBoard[updatedBoard.length - 1].push(null);
             }
         }
+    }
+    if (playerColour === 'black') {
+        return reverseBoard(updatedBoard);
     }
     return updatedBoard;
 };
