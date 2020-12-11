@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import initBoard from './scripts/initBoard';
 import updateBoard from './scripts/updateBoard';
+import { getMoveCountFromFen } from './scripts/boardConversion';
 import PureBoard from './PureBoard';
 
 class Board extends Component {
@@ -27,33 +28,46 @@ class Board extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.restart) {
-            this.props.setRestart(false, this.initBoard);
+        if (this.props.gameOver === 'start') {
+            if (this.props.playerColour === 'white') {
+                this.initBoard();
+            } else {
+                this.initBoard(this.computerMove);
+            }
         }
-        if (this.props.colour !== prevProps.colour) {
-            const ranks = [...this.state.ranks];
-            const files = [...this.state.files];
-            ranks.reverse();
-            files.reverse();
-            this.setState({
-                ranks,
-                files,
-                board: updateBoard(this.state.fen, this.state.board, this.props.colour)
-            });
+        if (this.props.playerColour !== prevProps.playerColour) {
+            this.reverseBoard();
         }
     }
 
-    initBoard = () => {
+    reverseBoard = () => {
+        const ranks = [...this.state.ranks];
+        const files = [...this.state.files];
+        ranks.reverse();
+        files.reverse();
+        this.setState({
+            ranks,
+            files,
+            board: updateBoard(this.state.fen, this.state.board, this.props.playerColour)
+        });
+    }
+
+    initBoard = (callback = null) => {
         axios.get('http://localhost:5000/chess/api/initboard').then((res) => {
             const moves = { ...this.state.moves };
             moves.possible = res.data.moves;
-            this.props.setFen(res.data.fen);
             this.setState({
-                board: initBoard(res.data.fen, this.props.colour),
+                board: initBoard(res.data.fen, this.props.playerColour),
                 fen: res.data.fen,
                 moves
-            });
+            }, callback);
         });
+    }
+
+    setGameOver = (gameOver, callback = null) => {
+        if (gameOver !== '') {
+            this.props.setGameOver(gameOver, callback);
+        }
     }
 
     selectSquare = (squareID) => {
@@ -62,21 +76,12 @@ class Board extends Component {
                 fen: this.state.fen,
                 move: this.state.selected + squareID
             }).then((res) => {
-                const moves = { ...this.state.moves };
-                moves.possible = res.data.moves;
-                moves.current = [];
-                this.props.setFen(res.data.fen);
-                this.setState({
-                    board: updateBoard(res.data.fen, this.state.board, this.props.colour),
-                    fen: res.data.fen,
-                    moves,
-                    selected: ''
-                }, () => this.props.setGameOver(
+                this.updateBoard(
+                    res.data.fen,
                     res.data.game_over,
-                    !res.data.game_over
-                        ? () => setTimeout(this.computerMove, 1000)
-                        : null
-                ));
+                    null,
+                    () => setTimeout(this.computerMove, 1000)
+                );
             });
         } else {
             const moves = { ...this.state.moves };
@@ -92,20 +97,27 @@ class Board extends Component {
         }
     }
 
+    updateBoard = (fen, gameOver, moves = null, callback = null) => {
+        const newMoves = { ...this.state.moves };
+        newMoves.possible = {};
+        newMoves.current = [];
+        if (moves === null) {
+            newMoves.possible = moves;
+        }
+        this.props.setMoveCount(getMoveCountFromFen(fen));
+        this.setState({
+            board: updateBoard(fen, this.state.board, this.props.playerColour),
+            fen,
+            moves: newMoves,
+            selected: ''
+        }, () => this.setGameOver(gameOver, callback));
+    }
+
     computerMove = () => {
         axios.put('http://localhost:5000/chess/api/cpumove', {
             fen: this.state.fen
         }).then((res) => {
-            const moves = { ...this.state.moves };
-            moves.possible = res.data.moves;
-            moves.current = [];
-            this.props.setFen(res.data.fen);
-            this.setState({
-                board: updateBoard(res.data.fen, this.state.board, this.props.colour),
-                fen: res.data.fen,
-                moves,
-                selected: ''
-            }, () => this.props.setGameOver(res.data.game_over));
+            this.updateBoard(res.data.fen, res.data.game_over, res.data.moves, null);
         });
     }
 
@@ -124,11 +136,11 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-    setGameOver: PropTypes.func,
-    restart: PropTypes.bool,
-    setRestart: PropTypes.func,
-    setFen: PropTypes.func,
-    colour: PropTypes.string
+    playerColour: PropTypes.oneOf(['white', 'black']).isRequired,
+    gameOver: PropTypes.oneOf(['restart', 'start', 'player', 'computer', 'draw', '']).isRequired,
+    setGameOver: PropTypes.func.isRequired,
+    level: PropTypes.number.isRequired,
+    setMoveCount: PropTypes.func.isRequired
 };
 
 export default Board;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ModalHeader from './Header';
-import ModalContainer from './Container';
+import ModalHeader from './ModalHeader';
+import ModalContainer from './ModalContainer';
 
 const Modal = (props) => (
     <ModalContainer id={props.id}>
@@ -21,12 +21,12 @@ const Modal = (props) => (
 );
 
 Modal.propTypes = {
-    id: PropTypes.string,
-    header: PropTypes.string,
-    onClose: PropTypes.func,
-    children: PropTypes.node,
-    action: PropTypes.func,
-    actionText: PropTypes.string
+    id: PropTypes.string.isRequired,
+    header: PropTypes.string.isRequired,
+    actionText: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
+    action: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired
 };
 
 export default Modal;

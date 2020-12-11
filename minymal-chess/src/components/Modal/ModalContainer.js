@@ -25,8 +25,8 @@ const ModalContainer = (props) => (
 );
 
 ModalContainer.propTypes = {
-    id: PropTypes.string,
-    children: PropTypes.node
+    id: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired
 };
 
 export default ModalContainer;

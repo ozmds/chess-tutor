@@ -5,6 +5,14 @@ import PropTypes from 'prop-types';
 
 import Square from '../Square/Square';
 
+const StyledBoardSection = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+`;
+
 const StyledSquare = styled.div`
     position: relative;
     width: 80%;
@@ -28,14 +36,6 @@ const StyledFlipper = styled(Flipper)`
     flex-wrap: wrap;
 `;
 
-const StyledBoardSection = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    width: 100%;
-`;
-
 const PureBoard = (props) => {
     const { ranks, files } = props;
     return (
@@ -47,9 +47,7 @@ const PureBoard = (props) => {
                         const findex = index % 8;
                         return (
                             <Square
-                                id={files[findex] + ranks[rindex]}
                                 key={index}
-                                number={index}
                                 pieceID={piece}
                                 squareID={files[findex] + ranks[rindex]}
                                 moves={props.moves.current}
@@ -64,12 +62,15 @@ const PureBoard = (props) => {
 };
 
 PureBoard.propTypes = {
-    ranks: PropTypes.array,
-    files: PropTypes.array,
-    fen: PropTypes.string,
-    board: PropTypes.array,
-    moves: PropTypes.object,
-    selectSquare: PropTypes.func
+    fen: PropTypes.string.isRequired,
+    ranks: PropTypes.arrayOf(PropTypes.number).isRequired,
+    files: PropTypes.arrayOf(PropTypes.string).isRequired,
+    board: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+    moves: PropTypes.exact({
+        possible: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+        current: PropTypes.arrayOf(PropTypes.string).isRequired
+    }),
+    selectSquare: PropTypes.func.isRequired
 };
 
 export default PureBoard;

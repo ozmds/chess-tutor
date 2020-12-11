@@ -1,8 +1,3 @@
-# sample fen
-# rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
-# fen documentation
-# https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
-
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
@@ -25,6 +20,18 @@ def get_move_list(board):
         else:
             move_list[start_square] = [chess.square_name(move.to_square)]
     return move_list
+
+
+def is_game_over(board, player_move=False):
+    result = board.result()
+    if player_move and result in ['1-0', '0-1']:
+        return 'player'
+    elif not player_move and result in ['1-0', '0-1']:
+        return 'computer'
+    elif result == '1/2-1/2':
+        return 'draw'
+    else:
+        return ''
 
 
 class InitBoard(Resource):
@@ -50,8 +57,7 @@ class UpdateBoard(Resource):
         board.push(chess.Move.from_uci(move))
         return {
             'fen': board.fen(),
-            'moves': get_move_list(board),
-            'game_over': board.is_game_over()
+            'game_over': is_game_over(board, player_move=True)
         }
 
 
@@ -69,7 +75,7 @@ class CPUMove(Resource):
         return {
             'fen': board.fen(),
             'moves': get_move_list(board),
-            'game_over': board.is_game_over()
+            'game_over': is_game_over(board, player_move=False)
         }
 
 

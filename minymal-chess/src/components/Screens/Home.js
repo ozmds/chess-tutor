@@ -6,7 +6,6 @@ import Board from '../Board/Board';
 import RestartModal from './RestartModal';
 import StartModal from './StartModal';
 import Header from '../Header/Header';
-import getMoveCountFromFen from './scripts/getMoveCountFromFen';
 
 const StyledHome = styled.div`
     display: flex;
@@ -21,29 +20,29 @@ const StyledHome = styled.div`
 const Home = (props) => (
     <StyledHome>
         <Header
-            moveCount={getMoveCountFromFen(props.fen)}
+            moveCount={props.moveCount}
             level={props.level}
         />
         <Board
+            gameOver={props.gameOver}
             setGameOver={props.setGameOver}
-            restart={props.restart}
-            setRestart={props.setRestart}
-            setFen={props.setFen}
-            colour={props.colour}
+            level={props.level}
+            playerColour={props.playerColour}
+            setMoveCount={props.setMoveCount}
         />
-        <button id={'restart'} className='btn btn-primary' onClick={() => props.setModal('restart')}>
+        <button id={'restart'} className='btn btn-primary' onClick={() => props.setGameOver('restart')}>
             {'Restart Game'}
         </button>
-        {props.modal === 'restart'
+        {['player', 'computer', 'draw', 'restart'].includes(props.gameOver)
             && <RestartModal
                 gameOver={props.gameOver}
-                setModal={props.setModal}
+                onClose={() => props.setGameOver('')}
+                restartGame={() => props.setGameOver('start')}
             />
         }
-        {props.modal === 'start'
+        {['start'].includes(props.gameOver)
             && <StartModal
-                gameOver={props.gameOver}
-                setModal={props.setModal}
+                onClose={() => props.setGameOver('')}
                 startGame={props.startGame}
             />
         }
@@ -51,17 +50,13 @@ const Home = (props) => (
 );
 
 Home.propTypes = {
-    fen: PropTypes.string,
-    level: PropTypes.string,
-    restart: PropTypes.string,
-    gameOver: PropTypes.string,
-    modal: PropTypes.string,
-    setFen: PropTypes.func,
-    setModal: PropTypes.func,
-    setRestart: PropTypes.func,
-    setGameOver: PropTypes.func,
-    startGame: PropTypes.func,
-    colour: PropTypes.string
+    moveCount: PropTypes.number.isRequired,
+    setMoveCount: PropTypes.func.isRequired,
+    gameOver: PropTypes.oneOf(['player', 'computer', 'draw', 'restart', 'start', '']).isRequired,
+    setGameOver: PropTypes.func.isRequired,
+    level: PropTypes.number.isRequired,
+    playerColour: PropTypes.oneOf(['white', 'black']).isRequired,
+    startGame: PropTypes.func.isRequired
 };
 
 export default Home;

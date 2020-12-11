@@ -11,8 +11,8 @@ const ModalHeader = (props) => (
 );
 
 ModalHeader.propTypes = {
-    header: PropTypes.string,
-    onClose: PropTypes.func
+    header: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired
 };
 
 export default ModalHeader;

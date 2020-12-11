@@ -1,4 +1,5 @@
-import { convertRankToList, convertFenToBoard, initBoard } from './helper';
+import { convertRankToList, convertFenToBoard } from './boardConversion';
+import initBoard from './initBoard';
 
 test('empty row', () => {
     expect(convertRankToList('8')).toEqual(

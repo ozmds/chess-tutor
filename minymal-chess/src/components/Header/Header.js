@@ -36,8 +36,8 @@ const Header = (props) => (
 );
 
 Header.propTypes = {
-    moveCount: PropTypes.string,
-    level: PropTypes.string
+    moveCount: PropTypes.number.isRequired,
+    level: PropTypes.number.isRequired
 };
 
 export default Header;

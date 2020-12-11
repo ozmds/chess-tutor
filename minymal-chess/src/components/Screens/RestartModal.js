@@ -7,8 +7,8 @@ const RestartModal = (props) => (
     <Modal
         id={'restart-modal'}
         header={props.gameOver ? 'Game Over' : 'Restart'}
-        onClose={() => props.setModal('')}
-        action={() => props.setModal('start')}
+        onClose={props.onClose}
+        action={props.restartGame}
         actionText={'Restart Game'}
     >
         {getMessage(props.gameOver)}
@@ -16,8 +16,9 @@ const RestartModal = (props) => (
 );
 
 RestartModal.propTypes = {
-    gameOver: PropTypes.string,
-    setModal: PropTypes.func
+    gameOver: PropTypes.oneOf(['restart', 'start', 'player', 'computer', 'draw', '']).isRequired,
+    onClose: PropTypes.func.isRequired,
+    restartGame: PropTypes.func.isRequired
 };
 
 export default RestartModal;

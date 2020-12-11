@@ -28,3 +28,5 @@ export const reverseBoard = (board) => {
     });
     return board;
 };
+
+export const getMoveCountFromFen = (fen) => (fen ? parseInt(fen.split(' ')[5], 10) : null);
