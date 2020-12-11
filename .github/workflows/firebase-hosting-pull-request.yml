@@ -14,5 +14,6 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MINYMAL }}'
           projectId: minymal
+          entrypoint: minymal-chess
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
