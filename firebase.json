@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "minymal",
-    "public": "minymal-chess/build",
+    "public": "./minymal-chess/build",
     "ignore": [
       "firebase.json",
       "**/.*",
