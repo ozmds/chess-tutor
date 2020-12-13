@@ -1,0 +1,11 @@
+name: Flake8
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: cd chessapi && pip intall -r requirements/base.txt
+    - name: Run Flake8
+      run: flake8 . --count --statistics --jobs=1
