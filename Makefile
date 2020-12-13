@@ -52,5 +52,5 @@ list_all_firebase_projects:
 select_firebase_project:
 	firebase use $(project)
 
-aws docker build:
+single docker build:
 	docker build -t minymal-chess -f ./deployments/aws/docker/Dockerfile .
