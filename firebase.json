@@ -8,7 +8,7 @@
     ],
     "rewrites": [
         {
-            "source": "/api/**",
+            "source": "chess/api/**",
             "run": {
                 "serviceId": "chessapi",
                 "region": "us-east1"
