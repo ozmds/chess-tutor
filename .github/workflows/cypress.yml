@@ -10,5 +10,7 @@ jobs:
             - uses: cypress-io/github-action@v2
               with:
                   working-directory: minymal-chess
-                  start: npm run build && npx serve -s build -l 3000
+                  start: npm start
                   browser: chrome
+                  wait-on: 'http://localhost:3000'
+                  spec: cypress/integration/tests/**/*spec.js
