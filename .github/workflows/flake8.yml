@@ -1,14 +1,14 @@
 name: Flake8
 on: push
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Install modules
-      run: cd chessapi && pip install -r requirements/base.txt
-    - name: Run Flake8
-      run: flake8 . --count --statistics --jobs=1
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-python@v2
+              with:
+                  python-version: "3.x"
+            - name: Install modules
+              run: cd chessapi && pip install -r requirements/base.txt
+            - name: Run Flake8
+              run: flake8 . --count --statistics --jobs=1
