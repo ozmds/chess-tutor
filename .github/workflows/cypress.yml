@@ -10,5 +10,5 @@ jobs:
             - uses: cypress-io/github-action@v2
               with:
                   working-directory: minymal-chess
-                  start: npx serve -s build -l 3000
+                  start: npm run build && npx serve -s build -l 3000
                   browser: chrome
