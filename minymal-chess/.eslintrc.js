@@ -5,6 +5,7 @@ module.exports = {
         "plugin:cypress/recommended"
     ],
     "parser": "babel-eslint",
+    ignorePatterns: ['src/serviceWorker.js', 'build/**/*.js'],
     "rules": {
         "indent": ["error", 4],
         "comma-dangle": ["error", "never"],
