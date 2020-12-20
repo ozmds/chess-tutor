@@ -5,7 +5,7 @@ module.exports = {
         "plugin:cypress/recommended"
     ],
     "parser": "babel-eslint",
-    ignorePatterns: ['src/serviceWorker.js', 'build/**/*.js'],
+    ignorePatterns: ['src/serviceWorker.js', 'build/**/*.js', 'cypress/integration/examples/*.js'],
     "rules": {
         "indent": ["error", 4],
         "comma-dangle": ["error", "never"],
@@ -14,7 +14,7 @@ module.exports = {
         "react/jsx-no-literals": ["error"],
         "react/jsx-indent" : ["error", 4],
         "react/jsx-indent-props": ["error", 4],
-        "max-lines": ["error", 80]
+        "max-lines": ["warn", 80]
     },
     "env": {
         "browser": true,
