@@ -24,25 +24,32 @@ const Home = (props) => (
             level={props.level}
         />
         <Board
-            gameOver={props.gameOver}
-            setGameOver={props.setGameOver}
+            gamePaused={props.gamePaused}
+            setGamePaused={props.setGamePaused}
             level={props.level}
             playerColour={props.playerColour}
             setMoveCount={props.setMoveCount}
         />
-        <button id={'restart'} className='btn btn-primary' onClick={() => props.setGameOver('restart')}>
+        <button id={'restart'} className='btn btn-primary' onClick={() => props.setGamePaused('restart')}>
             {'Restart Game'}
         </button>
-        {['player', 'computer', 'draw', 'restart'].includes(props.gameOver)
+        {props.gamePaused.startsWith('gameover')
             && <RestartModal
-                gameOver={props.gameOver}
-                onClose={() => props.setGameOver('')}
-                restartGame={() => props.setGameOver('start')}
+                gameOver={props.gamePaused.replace('gameover_', '')}
+                onClose={() => props.setGamePaused('start')}
+                restartGame={() => props.setGamePaused('start')}
             />
         }
-        {['start'].includes(props.gameOver)
+        {props.gamePaused === 'restart'
+            && <RestartModal
+                gameOver={props.gamePaused}
+                onClose={() => props.setGamePaused('')}
+                restartGame={() => props.setGamePaused('start')}
+            />
+        }
+        {props.gamePaused === 'start'
             && <StartModal
-                onClose={() => props.setGameOver('')}
+                onClose={() => props.setGamePaused('')}
                 startGame={props.startGame}
             />
         }
@@ -52,8 +59,10 @@ const Home = (props) => (
 Home.propTypes = {
     moveCount: PropTypes.number.isRequired,
     setMoveCount: PropTypes.func.isRequired,
-    gameOver: PropTypes.oneOf(['player', 'computer', 'draw', 'restart', 'start', '']).isRequired,
-    setGameOver: PropTypes.func.isRequired,
+    gamePaused: PropTypes.oneOf([
+        'gameover_player', 'gameover_computer', 'gameover_draw', 'restart', 'start', ''
+    ]).isRequired,
+    setGamePaused: PropTypes.func.isRequired,
     level: PropTypes.number.isRequired,
     playerColour: PropTypes.oneOf(['white', 'black']).isRequired,
     startGame: PropTypes.func.isRequired

@@ -5,7 +5,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            gameOver: '',
+            gamePaused: '',
             level: 1,
             playerColour: 'white',
             moveCount: 1
@@ -16,14 +16,14 @@ class App extends Component {
         this.setState({ moveCount });
     }
 
-    setGameOver = (gameOver, callback = null) => {
-        this.setState({ gameOver }, callback);
+    setGamePaused = (reason) => {
+        this.setState({ gamePaused: reason });
     }
 
     startGame = (playerColour, level) => {
         this.setState({ playerColour, level }, () => {
             this.setState({
-                gameOver: '',
+                gamePaused: '',
                 moveCount: 1
             });
         });
@@ -34,8 +34,8 @@ class App extends Component {
             <Home
                 moveCount={this.state.moveCount}
                 setMoveCount={this.setMoveCount}
-                gameOver={this.state.gameOver}
-                setGameOver={this.setGameOver}
+                gamePaused={this.state.gamePaused}
+                setGamePaused={this.setGamePaused}
                 level={this.state.level}
                 playerColour={this.state.playerColour}
                 startGame={this.startGame}

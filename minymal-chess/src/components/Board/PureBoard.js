@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { Flipper } from 'react-flip-toolkit';
 import PropTypes from 'prop-types';
@@ -36,30 +36,32 @@ const StyledFlipper = styled(Flipper)`
     flex-wrap: wrap;
 `;
 
-const PureBoard = (props) => {
-    const { ranks, files } = props;
-    return (
-        <StyledBoardSection>
-            <StyledSquare id={'board'}>
-                <StyledFlipper flipKey={props.fen}>
-                    {props.board.flat().map((piece, index) => {
-                        const rindex = Math.floor(index / 8);
-                        const findex = index % 8;
-                        return (
-                            <Square
-                                key={index}
-                                pieceID={piece}
-                                squareID={files[findex] + ranks[rindex]}
-                                moves={props.moves.current}
-                                selectSquare={props.selectSquare}
-                            />
-                        );
-                    })}
-                </StyledFlipper>
-            </StyledSquare>
-        </StyledBoardSection>
-    );
-};
+class PureBoard extends PureComponent {
+    render() {
+        const { ranks, files } = this.props;
+        return (
+            <StyledBoardSection>
+                <StyledSquare id={'board'}>
+                    <StyledFlipper flipKey={`${this.props.fen}${this.props.files.join('')}`}>
+                        {this.props.board.flat().map((piece, index) => {
+                            const rindex = Math.floor(index / 8);
+                            const findex = index % 8;
+                            return (
+                                <Square
+                                    key={index}
+                                    pieceID={piece}
+                                    squareID={files[findex] + ranks[rindex]}
+                                    moves={this.props.moves.current}
+                                    selectSquare={this.props.selectSquare}
+                                />
+                            );
+                        })}
+                    </StyledFlipper>
+                </StyledSquare>
+            </StyledBoardSection>
+        );
+    }
+}
 
 PureBoard.propTypes = {
     fen: PropTypes.string.isRequired,

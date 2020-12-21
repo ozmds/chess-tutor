@@ -30,20 +30,26 @@ context('Onload', () => {
     });
 
     it('Player is able to promote pawn', () => {
+        assert(false);
     });
 
     it('Computer is able to promote pawn', () => {
+        assert(false);
     });
 
     it('Restart modal is shown when computer checkmates', () => {
+        assert(false);
     });
 
     it('Restart modal is shown when player checkmates', () => {
+        assert(false);
     });
 
     it('Restart modal is shown when game ends in a draw', () => {
+        assert(false);
     });
 
     it('When player is black, computer moves first', () => {
+        assert(false);
     });
 });
