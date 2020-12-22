@@ -67,10 +67,7 @@ class Board extends Component {
 
     pieceIsPromotablePawn = (squareID) => {
         if (this.state.selected.piece.toUpperCase() === 'P') {
-            if (this.props.playerColour === 'white' && squareID[1] === '8') {
-                return true;
-            }
-            if (this.props.playerColour === 'black' && squareID[1] === '1') {
+            if (squareID[1] === '1' || squareID[1] === '8') {
                 return true;
             }
         }

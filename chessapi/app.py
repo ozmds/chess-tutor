@@ -34,6 +34,13 @@ def is_game_over(board, player_move=False):
         return ''
 
 
+def get_player_move(move, promotedpiece):
+    move = chess.Move.from_uci(move)
+    if promotedpiece != '':
+        move.promotion = chess.Piece.from_symbol(promotedpiece)
+    return move
+
+
 class InitBoard(Resource):
     def get(self):
         board = chess.Board()
@@ -48,13 +55,15 @@ class UpdateBoard(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('fen', type=str, required=True)
         self.parser.add_argument('move', type=str, required=True)
+        self.parser.add_arguemnt('promotedpiece', type=str, required=True)
 
     def put(self):
         args = self.parser.parse_args()
         fen = args['fen']
         move = args['move']
+        piece = args['piece']
         board = chess.Board(fen)
-        board.push(chess.Move.from_uci(move))
+        board.push(get_player_move(move, piece))
         return {
             'fen': board.fen(),
             'game_over': is_game_over(board, player_move=True)
