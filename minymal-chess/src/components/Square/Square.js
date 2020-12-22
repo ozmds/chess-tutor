@@ -49,7 +49,7 @@ const Square = (props) => {
                     && <TargetCircle src={targetCircle} alt={'target circle'} />
                 }
                 <Flipped flipId={props.pieceID}>
-                    <PlainButton onClick={() => props.selectSquare(props.squareID)}>
+                    <PlainButton onClick={() => props.selectSquare(props.squareID, props.pieceID[0])}>
                         <ChessPiece src={piece.image} alt={piece.name} />
                     </PlainButton>
                 </Flipped>

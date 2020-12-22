@@ -25,6 +25,7 @@ class StartModal extends Component {
                 <h4>{'Choose a Colour'}</h4>
                 <OptionButton
                     backgroundColour='btn-light'
+                    id={'player-white'}
                     onClick={() => this.setState({ playerColour: 'white' })}
                     selected={this.state.playerColour === 'white'}
                 >
@@ -32,6 +33,7 @@ class StartModal extends Component {
                 </OptionButton>
                 <OptionButton
                     backgroundColour='btn-dark'
+                    id={'player-black'}
                     onClick={() => this.setState({ playerColour: 'black' })}
                     selected={this.state.playerColour === 'black'}
                 >
@@ -40,6 +42,7 @@ class StartModal extends Component {
                 <h4>{'Choose A Difficulty'}</h4>
                 <OptionButton
                     backgroundColour='btn-secondary'
+                    id={'computer-1'}
                     onClick={() => this.setState({ computerLevel: 1 })}
                     selected={this.state.computerLevel === 1}
                 >
@@ -47,6 +50,7 @@ class StartModal extends Component {
                 </OptionButton>
                 <OptionButton
                     backgroundColour='btn-secondary'
+                    id={'computer-2'}
                     onClick={() => this.setState({ computerLevel: 2 })}
                     selected={this.state.computerLevel === 2}
                 >
@@ -54,6 +58,7 @@ class StartModal extends Component {
                 </OptionButton>
                 <OptionButton
                     backgroundColour='btn-secondary'
+                    id={'computer-3'}
                     onClick={() => this.setState({ computerLevel: 3 })}
                     selected={this.state.computerLevel === 3}
                 >

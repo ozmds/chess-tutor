@@ -9,11 +9,11 @@ const Modal = (props) => (
             header={props.header}
             onClose={props.onClose}
         />
-        <div className='modal-body'>
+        <div id={'modal-body'} className='modal-body'>
             {props.children}
         </div>
         <div className='modal-footer'>
-            <button className='btn btn-primary' onClick={props.action}>
+            <button id={'modal-action'} className='btn btn-primary' onClick={props.action}>
                 {props.actionText}
             </button>
         </div>

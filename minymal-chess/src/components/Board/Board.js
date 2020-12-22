@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -6,6 +6,7 @@ import initBoard from './scripts/initBoard';
 import updateBoard from './scripts/updateBoard';
 import { getMoveCountFromFen } from './scripts/boardConversion';
 import PureBoard from './PureBoard';
+import PawnPromotionModal from '../Screens/PawnPromotionModal';
 
 class Board extends Component {
     constructor(props) {
@@ -16,11 +17,15 @@ class Board extends Component {
             fen: '',
             fenList: [],
             board: [],
-            selected: '',
+            selected: {
+                square: '',
+                piece: ''
+            },
             moves: {
                 possible: {},
                 current: []
-            }
+            },
+            promotedSquare: ''
         };
     }
 
@@ -50,22 +55,43 @@ class Board extends Component {
                     possible: res.data.moves,
                     current: []
                 },
-                selected: '',
+                selected: {
+                    square: '',
+                    piece: ''
+                },
                 ranks,
                 files
             }, playerColour === 'black' ? () => setTimeout(this.computerMove, 1000) : null);
         });
     }
 
-    selectSquare = (squareID) => {
+    pieceIsPromotablePawn = (squareID) => {
+        if (this.state.selected.piece.toUpperCase() === 'P') {
+            if (this.props.playerColour === 'white' && squareID[1] === '8') {
+                return true;
+            }
+            if (this.props.playerColour === 'black' && squareID[1] === '1') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    selectSquare = (squareID, pieceID = '') => {
         if (this.state.moves.current.includes(squareID)) {
-            this.updateGameStateWithPlayerMove(squareID);
+            if (this.pieceIsPromotablePawn(squareID)) {
+                this.setState({
+                    promotedSquare: squareID
+                });
+            } else {
+                this.updateGameStateWithPlayerMove(squareID);
+            }
         } else {
-            this.updateCurrentPieceAvailableMoves(squareID);
+            this.updateCurrentPieceAvailableMoves(squareID, pieceID);
         }
     }
 
-    updateCurrentPieceAvailableMoves = (squareID) => {
+    updateCurrentPieceAvailableMoves = (squareID, piece) => {
         const moves = { ...this.state.moves };
         if (Object.keys(moves.possible).includes(squareID)) {
             moves.current = moves.possible[squareID];
@@ -74,14 +100,18 @@ class Board extends Component {
         }
         this.setState({
             moves,
-            selected: squareID
+            selected: {
+                square: squareID,
+                piece
+            }
         });
     }
 
-    updateGameStateWithPlayerMove = (squareID) => {
+    updateGameStateWithPlayerMove = (squareID, promotedPiece = '') => {
         axios.put('http://localhost:5000/chess/api/updateboard', {
             fen: this.state.fen,
-            move: this.state.selected + squareID
+            move: this.state.selected.square + squareID,
+            promotedpiece: promotedPiece
         }).then((res) => {
             this.updateBoard(res.data.fen, res.data.game_over, null, true);
         });
@@ -107,7 +137,10 @@ class Board extends Component {
                 current: [],
                 possible: possibleMoves !== null ? possibleMoves : {}
             },
-            selected: ''
+            selected: {
+                square: '',
+                piece: ''
+            }
         }, () => this.checkGameOver(gameOver, player));
     }
 
@@ -119,16 +152,31 @@ class Board extends Component {
         }
     }
 
+    promotePawn = (piece) => {
+        const { promotedSquare } = this.state;
+        this.setState({
+            promotedSquare: ''
+        }, () => this.updateGameStateWithPlayerMove(promotedSquare, piece));
+    }
+
     render() {
         return (
-            <PureBoard
-                ranks={this.state.ranks}
-                files={this.state.files}
-                fen={this.state.fen}
-                board={this.state.board}
-                moves={this.state.moves}
-                selectSquare={this.selectSquare}
-            />
+            <Fragment>
+                <PureBoard
+                    ranks={this.state.ranks}
+                    files={this.state.files}
+                    fen={this.state.fen}
+                    board={this.state.board}
+                    moves={this.state.moves}
+                    selectSquare={this.selectSquare}
+                />
+                {this.state.promotedSquare !== ''
+                    && <PawnPromotionModal
+                        playerColour={this.props.playerColour}
+                        promotePawn={this.promotePawn}
+                    />
+                }
+            </Fragment>
         );
     }
 }
