@@ -8,9 +8,8 @@ import { getMoveCountFromFen } from './scripts/boardConversion';
 import PureBoard from './PureBoard';
 import PawnPromotionModal from '../Screens/PawnPromotionModal';
 
-const PROD_URL = 'https://minymal.app';
-/* const DEV_URL = 'http://localhost:5000'; */
-const API_URL = PROD_URL;
+const API_ENV = 'dev';
+const API_URL = API_ENV === 'prod' ? 'https://minymal.app' : 'http://localhost:5000';
 
 class Board extends Component {
     constructor(props) {

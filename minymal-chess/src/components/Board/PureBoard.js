@@ -17,7 +17,6 @@ const StyledSquare = styled.div`
     position: relative;
     width: 80%;
     max-width: 60vh;
-    min-width: 35rem;
     margin: 1rem;
     background-color: #696969;
     &:after {
@@ -26,6 +25,8 @@ const StyledSquare = styled.div`
         padding-bottom: 100%;
     }
 `;
+
+/* min-width: 35rem; */
 
 const StyledFlipper = styled(Flipper)`
     position: absolute;

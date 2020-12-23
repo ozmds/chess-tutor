@@ -8,9 +8,10 @@ const StyledHeader = styled.div`
     justify-content: space-around;
     flex-direction: row;
     width: 80%;
-    max-width: 60vh;
-    min-width: 35rem;
+    max-width: 60vh;  
 `;
+
+/* min-width: 35rem; */
 
 const InfoBox = styled.div`
     display: flex;
