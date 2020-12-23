@@ -15,7 +15,7 @@ const StyledBoardSection = styled.div`
 
 const StyledSquare = styled.div`
     position: relative;
-    width: 80%;
+    width: 90%;
     max-width: 60vh;
     margin: 1rem;
     background-color: #696969;
@@ -25,8 +25,6 @@ const StyledSquare = styled.div`
         padding-bottom: 100%;
     }
 `;
-
-/* min-width: 35rem; */
 
 const StyledFlipper = styled(Flipper)`
     position: absolute;

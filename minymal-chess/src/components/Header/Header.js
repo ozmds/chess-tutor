@@ -7,11 +7,9 @@ const StyledHeader = styled.div`
     align-items: center;
     justify-content: space-around;
     flex-direction: row;
-    width: 80%;
+    width: 90%;
     max-width: 60vh;  
 `;
-
-/* min-width: 35rem; */
 
 const InfoBox = styled.div`
     display: flex;
@@ -28,7 +26,7 @@ const Header = (props) => (
             <h2 className='h3'>{'Move'}</h2>
             <p className='h3'>{props.moveCount}</p>
         </InfoBox>
-        <h1 id={'header'}>{'Minimalist Chess'}</h1>
+        <h1 id={'header'} style={{ textAlign: 'center', padding: '0.5rem' }}>{'Minimalist Chess'}</h1>
         <InfoBox id={'level-indicator'}>
             <h2 className='h3'>{'Level'}</h2>
             <p className='h3'>{`${props.level}`}</p>

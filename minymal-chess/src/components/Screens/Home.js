@@ -15,6 +15,9 @@ const StyledHome = styled.div`
     min-height: 100vh;
     font-family: 'Redressed', serif;
     font-size: 1rem;
+    @media (max-width: 415px) {
+        justify-content: space-evenly;
+    }
 `;
 
 const Home = (props) => (
