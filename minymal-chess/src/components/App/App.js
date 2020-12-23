@@ -8,7 +8,8 @@ class App extends Component {
             gamePaused: '',
             level: 1,
             playerColour: 'white',
-            moveCount: 1
+            moveCount: 1,
+            welcome: true
         };
     }
 
@@ -29,6 +30,10 @@ class App extends Component {
         });
     }
 
+    setWelcome = (welcome) => {
+        this.setState({ welcome });
+    }
+
     render() {
         return (
             <Home
@@ -39,6 +44,8 @@ class App extends Component {
                 level={this.state.level}
                 playerColour={this.state.playerColour}
                 startGame={this.startGame}
+                welcome={this.state.welcome}
+                setWelcome={this.setWelcome}
             />
         );
     }

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Board from '../Board/Board';
 import RestartModal from './RestartModal';
 import StartModal from './StartModal';
+import WelcomeModal from './WelcomeModal';
 import Header from '../Header/Header';
 
 const StyledHome = styled.div`
@@ -56,6 +57,11 @@ const Home = (props) => (
                 startGame={props.startGame}
             />
         }
+        {props.welcome === true
+            && <WelcomeModal
+                onClose={() => props.setWelcome(false)}
+            />
+        }
     </StyledHome>
 );
 
@@ -68,7 +74,9 @@ Home.propTypes = {
     setGamePaused: PropTypes.func.isRequired,
     level: PropTypes.number.isRequired,
     playerColour: PropTypes.oneOf(['white', 'black']).isRequired,
-    startGame: PropTypes.func.isRequired
+    startGame: PropTypes.func.isRequired,
+    welcome: PropTypes.bool.isRequired,
+    setWelcome: PropTypes.func.isRequired
 };
 
 export default Home;
