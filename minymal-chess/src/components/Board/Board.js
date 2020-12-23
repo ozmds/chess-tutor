@@ -8,10 +8,9 @@ import { getMoveCountFromFen } from './scripts/boardConversion';
 import PureBoard from './PureBoard';
 import PawnPromotionModal from '../Screens/PawnPromotionModal';
 
-const PROD_URL = 'http://localhost:5000';
-const DEV_URL = 'https://minymal.app';
+const PROD_URL = 'https://minymal.app';
+/* const DEV_URL = 'http://localhost:5000'; */
 const API_URL = PROD_URL;
-
 
 class Board extends Component {
     constructor(props) {
@@ -114,7 +113,6 @@ class Board extends Component {
             fen: this.state.fen,
             move: this.state.selected.square + squareID + promotedPiece.toLowerCase()
         }).then((res) => {
-            console.log(res.data.fen);
             this.updateBoard(res.data.fen, res.data.game_over, null, true);
         });
     }
