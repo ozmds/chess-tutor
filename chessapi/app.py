@@ -34,20 +34,37 @@ def is_game_over(board, player_move=False):
         return ''
 
 
-def get_player_move(move, promotedpiece):
-    move = chess.Move.from_uci(move)
-    if promotedpiece != '':
-        move.promotion = chess.Piece.from_symbol(promotedpiece)
-    return move
+def init_board():
+    board = chess.Board()
+    return {
+        'fen': board.fen(),
+        'moves': get_move_list(board)
+    }
+
+
+def update_with_player_move(fen, move):
+    board = chess.Board(fen)
+    board.push(chess.Move.from_uci(move))
+    return {
+        'fen': board.fen(),
+        'game_over': is_game_over(board, player_move=True)
+    }
+
+
+def random_cpu_move(fen):
+    board = chess.Board(fen)
+    random_index = random.randint(0, len(list(board.legal_moves)) - 1)
+    board.push(list(board.legal_moves)[random_index])
+    return {
+        'fen': board.fen(),
+        'moves': get_move_list(board),
+        'game_over': is_game_over(board, player_move=False)
+    }
 
 
 class InitBoard(Resource):
     def get(self):
-        board = chess.Board()
-        return {
-            'fen': board.fen(),
-            'moves': get_move_list(board)
-        }
+        return init_board()
 
 
 class UpdateBoard(Resource):
@@ -55,19 +72,12 @@ class UpdateBoard(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('fen', type=str, required=True)
         self.parser.add_argument('move', type=str, required=True)
-        self.parser.add_arguemnt('promotedpiece', type=str, required=True)
 
     def put(self):
         args = self.parser.parse_args()
         fen = args['fen']
         move = args['move']
-        piece = args['piece']
-        board = chess.Board(fen)
-        board.push(get_player_move(move, piece))
-        return {
-            'fen': board.fen(),
-            'game_over': is_game_over(board, player_move=True)
-        }
+        return update_with_player_move(fen, move)
 
 
 class CPUMove(Resource):
@@ -78,14 +88,7 @@ class CPUMove(Resource):
     def put(self):
         args = self.parser.parse_args()
         fen = args['fen']
-        board = chess.Board(fen)
-        random_index = random.randint(0, len(list(board.legal_moves)) - 1)
-        board.push(list(board.legal_moves)[random_index])
-        return {
-            'fen': board.fen(),
-            'moves': get_move_list(board),
-            'game_over': is_game_over(board, player_move=False)
-        }
+        return random_cpu_move(fen)
 
 
 api.add_resource(InitBoard, '/chess/api/initboard')
@@ -93,4 +96,5 @@ api.add_resource(UpdateBoard, '/chess/api/updateboard')
 api.add_resource(CPUMove, '/chess/api/cpumove')
 
 if __name__ == '__main__':
-    serve(app, host='0.0.0.0', port='5000')
+    # serve(app, host='0.0.0.0', port='5000')
+    app.run(debug=True)

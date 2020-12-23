@@ -8,6 +8,11 @@ import { getMoveCountFromFen } from './scripts/boardConversion';
 import PureBoard from './PureBoard';
 import PawnPromotionModal from '../Screens/PawnPromotionModal';
 
+const PROD_URL = 'http://localhost:5000';
+const DEV_URL = 'https://minymal.app';
+const API_URL = PROD_URL;
+
+
 class Board extends Component {
     constructor(props) {
         super(props);
@@ -40,7 +45,7 @@ class Board extends Component {
     }
 
     initBoard = (playerColour) => {
-        axios.get('http://localhost:5000/chess/api/initboard').then((res) => {
+        axios.get(`${API_URL}/chess/api/initboard`).then((res) => {
             const ranks = [...this.state.ranks];
             const files = [...this.state.files];
             if (playerColour === 'black') {
@@ -105,17 +110,17 @@ class Board extends Component {
     }
 
     updateGameStateWithPlayerMove = (squareID, promotedPiece = '') => {
-        axios.put('http://localhost:5000/chess/api/updateboard', {
+        axios.put(`${API_URL}/chess/api/updateboard`, {
             fen: this.state.fen,
-            move: this.state.selected.square + squareID,
-            promotedpiece: promotedPiece
+            move: this.state.selected.square + squareID + promotedPiece.toLowerCase()
         }).then((res) => {
+            console.log(res.data.fen);
             this.updateBoard(res.data.fen, res.data.game_over, null, true);
         });
     }
 
     computerMove = () => {
-        axios.put('http://localhost:5000/chess/api/cpumove', {
+        axios.put(`${API_URL}/chess/api/cpumove`, {
             fen: this.state.fen
         }).then((res) => {
             this.updateBoard(res.data.fen, res.data.game_over, res.data.moves);
