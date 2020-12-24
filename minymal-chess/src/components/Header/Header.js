@@ -7,8 +7,9 @@ const StyledHeader = styled.div`
     align-items: center;
     justify-content: space-around;
     flex-direction: row;
-    width: 90%;
-    max-width: 60vh;  
+    width: 100%;
+    max-width: 60vh;
+    padding: 0.5rem;
 `;
 
 const InfoBox = styled.div`

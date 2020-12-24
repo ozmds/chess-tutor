@@ -15,9 +15,10 @@ const StyledBoardSection = styled.div`
 
 const StyledSquare = styled.div`
     position: relative;
-    width: 90%;
+    width: 100%;
     max-width: 60vh;
-    margin: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     background-color: #696969;
     &:after {
         content: "";
@@ -33,6 +34,9 @@ const StyledFlipper = styled(Flipper)`
     display: flex;
     padding: 0.75rem;
     flex-wrap: wrap;
+    @media (max-width: 415px) {
+        padding: 0rem;
+    }
 `;
 
 class PureBoard extends PureComponent {
