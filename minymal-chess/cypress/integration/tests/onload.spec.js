@@ -3,6 +3,10 @@ context('Onload', () => {
         cy.visit('http://localhost:3000/');
     });
 
+    it('Welcome modal is present', () => {
+        assert(false);
+    });
+
     it('Header is present', () => {
         cy.get('h1[id="header"]').should('have.text', 'Minimalist Chess');
     });
