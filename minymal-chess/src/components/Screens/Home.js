@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import Board from '../Board/Board';
@@ -7,19 +6,7 @@ import RestartModal from './RestartModal';
 import StartModal from './StartModal';
 import WelcomeModal from './WelcomeModal';
 import Header from '../Header/Header';
-
-const StyledHome = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    min-height: 100vh;
-    font-family: 'Redressed', serif;
-    font-size: 1rem;
-    @media (max-width: 415px) {
-        justify-content: space-evenly;
-    }
-`;
+import StyledHome from './styled';
 
 const Home = (props) => (
     <StyledHome>
