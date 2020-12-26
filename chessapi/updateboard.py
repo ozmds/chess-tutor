@@ -43,7 +43,7 @@ def init_board():
     board = chess.Board()
     return {
         'fen': board.fen(),
-        'moves': get_player_move_options(board)
+        'moves': get_player_move_options(board.fen())
     }
 
 
