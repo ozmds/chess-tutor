@@ -1,0 +1,86 @@
+{
+    "opening_black_knight_response": {
+        "statusCode": 200,
+        "body": {
+            "fen": "rnbqkb1r/pppppppp/5n2/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2",
+            "moves": {},
+            "game_over": ""
+        },
+        "headers": {
+            "access-control-allow-origin": "*"
+        },
+        "delayMs": 500
+    },
+    "opening_white_pawn": {
+        "statusCode": 200,
+        "body": {
+            "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2",
+            "moves": {},
+            "game_over": ""
+        },
+        "headers": {
+            "access-control-allow-origin": "*"
+        },
+        "delayMs": 500
+    },
+    "one_before_black_two_rook_checkmate": {
+        "statusCode": 200,
+        "body": {
+            "fen": "7K/r7/8/8/8/8/4r3/8 w - - 1 2",
+            "moves": {
+                "h8": [
+                    "g8"
+                ]
+            },
+            "game_over": ""
+        },
+        "headers": {
+            "access-control-allow-origin": "*"
+        },
+        "delayMs": 500
+    },
+    "black_two_rook_checkmate": {
+        "statusCode": 200,
+        "body": {
+            "fen": "4r1K1/r7/8/8/8/8/8/8 w - - 1 2",
+            "moves": {},
+            "game_over": "computer"
+        },
+        "headers": {
+            "access-control-allow-origin": "*"
+        },
+        "delayMs": 500
+    },
+    "one_before_white_two_rook_checkmate": {
+        "statusCode": 200,
+        "body": {
+            "fen": "7k/R7/8/8/8/8/5R2/8 w - - 1 2",
+            "moves": {
+                "f2": [
+                    "f8"
+                ]
+            },
+            "game_over": ""
+        },
+        "headers": {
+            "access-control-allow-origin": "*"
+        },
+        "delayMs": 500
+    },
+    "one_before_white_two_rook_draw": {
+        "statusCode": 200,
+        "body": {
+            "fen": "7k/R7/8/8/8/8/5R2/8 w - - 1 2",
+            "moves": {
+                "f2": [
+                    "g2"
+                ]
+            },
+            "game_over": ""
+        },
+        "headers": {
+            "access-control-allow-origin": "*"
+        },
+        "delayMs": 500
+    }
+}
