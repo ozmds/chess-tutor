@@ -1,26 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-const StyledButton = styled.button`
-    background: none;
-    color: inherit;
-    border: 1px solid black;
-    border-radius: 1rem;
-    padding: 1rem;
-    font: inherit;
-    cursor: pointer;
-    outline: none !important;
-`;
+import { Button } from '../core/Button';
 
 const ModalOption = (props) => (
-    <StyledButton
+    <Button
         id={props.id}
         type='button'
         onClick={props.onClick}
+        colour={'#A8B0D1'}
     >
         {props.children}
-    </StyledButton>
+    </Button>
 );
 
 ModalOption.propTypes = {

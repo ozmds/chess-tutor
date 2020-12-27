@@ -6,8 +6,9 @@ import circle from '../../static/circle.svg';
 import targetCircle from '../../static/target_circle.svg';
 import getPiece from './scripts/library';
 import {
-    StyledSquare, TargetCircle, PlainButton, ChessPiece
+    StyledSquare, TargetCircle, ChessPiece
 } from './styled';
+import { TransparentButton } from '../core/Button';
 
 const Square = (props) => {
     if (props.pieceID !== null) {
@@ -18,9 +19,9 @@ const Square = (props) => {
                     && <TargetCircle src={targetCircle} alt={'target circle'} />
                 }
                 <Flipped flipId={props.pieceID}>
-                    <PlainButton onClick={() => props.selectSquare(props.squareID, props.pieceID[0])}>
+                    <TransparentButton onClick={() => props.selectSquare(props.squareID, props.pieceID[0])}>
                         <ChessPiece src={piece.image} alt={piece.name} />
-                    </PlainButton>
+                    </TransparentButton>
                 </Flipped>
             </StyledSquare>
         );
@@ -28,9 +29,9 @@ const Square = (props) => {
     if (props.moves.includes(props.squareID)) {
         return (
             <StyledSquare id={props.squareID}>
-                <PlainButton onClick={() => props.selectSquare(props.squareID)}>
+                <TransparentButton onClick={() => props.selectSquare(props.squareID)}>
                     <ChessPiece src={circle} alt={'circle'} />
-                </PlainButton>
+                </TransparentButton>
             </StyledSquare>
         );
     }

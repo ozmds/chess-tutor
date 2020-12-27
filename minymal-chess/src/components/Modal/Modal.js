@@ -3,17 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ModalHeader from './ModalHeader';
 import ModalContainer from './ModalContainer';
-
-const StyledButton = styled.button`
-    background: none;
-    color: inherit;
-    border: 1px solid black;
-    border-radius: 1rem;
-    padding: 1rem;
-    font: inherit;
-    cursor: pointer;
-    outline: none !important;
-`;
+import { Button } from '../core/Button';
 
 const ModalWrap = styled.div`
 `;
@@ -28,9 +18,9 @@ const Modal = (props) => (
             {props.children}
         </ModalWrap>
         <ModalWrap>
-            <StyledButton id={'modal-action'} onClick={props.action}>
+            <Button colour={'#A8B0D1'} id={'modal-action'} onClick={props.action}>
                 {props.actionText}
-            </StyledButton>
+            </Button>
         </ModalWrap>
     </ModalContainer>
 );

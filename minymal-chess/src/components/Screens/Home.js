@@ -1,23 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import Board from '../Board/Board';
 import RestartModal from './RestartModal';
 import StartModal from './StartModal';
 import WelcomeModal from './WelcomeModal';
 import Header from '../Header/Header';
 import StyledHome from './styled';
-
-const StyledButton = styled.button`
-    background: none;
-    color: inherit;
-    border: 1px solid black;
-    border-radius: 1rem;
-    padding: 1rem;
-    font: inherit;
-    cursor: pointer;
-    outline: none !important;
-`;
+import { Button } from '../core/Button';
 
 const Home = (props) => (
     <StyledHome>
@@ -32,9 +21,9 @@ const Home = (props) => (
             playerColour={props.playerColour}
             setMoveCount={props.setMoveCount}
         />
-        <StyledButton id={'restart'} onClick={() => props.setGamePaused('restart')}>
+        <Button colour={'#A8B0D1'} id={'restart'} onClick={() => props.setGamePaused('restart')}>
             {'Restart Game'}
-        </StyledButton>
+        </Button>
         {props.gamePaused.startsWith('gameover')
             && <RestartModal
                 gameOver={props.gamePaused.replace('gameover_', '')}

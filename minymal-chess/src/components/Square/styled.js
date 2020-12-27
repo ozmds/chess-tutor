@@ -11,16 +11,6 @@ export const StyledSquare = styled.div`
     justify-content: center;
 `;
 
-export const PlainButton = styled.button`
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    outline: none !important;
-`;
-
 export const ChessPiece = styled.img`
     width: 70%;
     position: relative;
