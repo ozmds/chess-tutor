@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Modal from '../Modal/Modal';
 import OptionButton from '../Modal/ModalOption';
 import getPiece from '../Square/scripts/library';
+
+const ModalHeadingText = styled.h4`
+`;
+
+const FlexContainer = styled.div`
+    display: flex;
+`;
+
+const PieceImage = styled.img`
+    width: 100%;
+`;
 
 class PawnPromotionModal extends Component {
     constructor(props) {
@@ -17,7 +29,7 @@ class PawnPromotionModal extends Component {
         if (this.props.playerColour === 'white') {
             piece = pieceKey.toUpperCase();
         }
-        return <img style={{ width: '100%' }} src={getPiece(piece).image} alt={getPiece(piece).name} />;
+        return <PieceImage src={getPiece(piece).image} alt={getPiece(piece).name} />;
     }
 
     promotePawn = () => {
@@ -37,8 +49,8 @@ class PawnPromotionModal extends Component {
                 action={this.promotePawn}
                 actionText={'Select'}
             >
-                <h4>{'Choose a Piece'}</h4>
-                <div style={{ display: 'flex' }}>
+                <ModalHeadingText>{'Choose a Piece'}</ModalHeadingText>
+                <FlexContainer>
                     <OptionButton
                         backgroundColour='btn-light'
                         id={'promotion-queen'}
@@ -71,7 +83,7 @@ class PawnPromotionModal extends Component {
                     >
                         {this.getPieceImage('r')}
                     </OptionButton>
-                </div>
+                </FlexContainer>
             </Modal>
         );
     }

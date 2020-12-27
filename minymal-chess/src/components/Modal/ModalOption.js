@@ -1,15 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+    background: none;
+    color: inherit;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 1rem;
+    font: inherit;
+    cursor: pointer;
+    outline: none !important;
+`;
 
 const ModalOption = (props) => (
-    <button
+    <StyledButton
         id={props.id}
         type='button'
-        className={`m-3 border btn btn-lg ${props.backgroundColour} ${props.selected ? 'active shadow' : ''}`}
         onClick={props.onClick}
     >
         {props.children}
-    </button>
+    </StyledButton>
 );
 
 ModalOption.propTypes = {

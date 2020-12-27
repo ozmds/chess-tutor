@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Modal from '../Modal/Modal';
 import OptionButton from '../Modal/ModalOption';
+
+const ModalHeadingText = styled.h4`
+`;
 
 class StartModal extends Component {
     constructor(props) {
@@ -22,7 +26,7 @@ class StartModal extends Component {
                 action={() => this.props.startGame(playerColour, computerLevel)}
                 actionText={'Start'}
             >
-                <h4>{'Choose a Colour'}</h4>
+                <ModalHeadingText>{'Choose a Colour'}</ModalHeadingText>
                 <OptionButton
                     backgroundColour='btn-light'
                     id={'player-white'}
@@ -39,7 +43,7 @@ class StartModal extends Component {
                 >
                     {'Black'}
                 </OptionButton>
-                <h4>{'Choose A Difficulty'}</h4>
+                <ModalHeadingText>{'Choose A Difficulty'}</ModalHeadingText>
                 <OptionButton
                     backgroundColour='btn-secondary'
                     id={'computer-1'}

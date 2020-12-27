@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Background from './styled';
+
+const ModalDialog = styled.div`
+    width: 90vw;
+    max-width: 30rem;
+    background-color: #FFF;
+`;
 
 const ModalContainer = (props) => (
     <Background>
-        <div id={props.id} className='modal-dialog'>
-            <div className='modal-content'>
-                {props.children}
-            </div>
-        </div>
+        <ModalDialog id={props.id}>
+            {props.children}
+        </ModalDialog>
     </Background>
 );
 

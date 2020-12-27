@@ -1,17 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { StyledHeader, InfoBox } from './styled';
+
+const AppHeading = styled.h1`
+    text-align: center;
+    padding: 0.5rem;
+`;
+
+const InfoBoxHeading = styled.h2`
+    font-size: 1.17em;
+`;
+
+const InfoBoxValue = styled.p`
+    font-size: 1.17em;
+`;
 
 const Header = (props) => (
     <StyledHeader>
         <InfoBox id={'move-counter'}>
-            <h2 className='h3'>{'Move'}</h2>
-            <p className='h3'>{props.moveCount}</p>
+            <InfoBoxHeading>{'Move'}</InfoBoxHeading>
+            <InfoBoxValue>{props.moveCount}</InfoBoxValue>
         </InfoBox>
-        <h1 id={'header'} style={{ textAlign: 'center', padding: '0.5rem' }}>{'Minimalist Chess'}</h1>
+        <AppHeading id={'header'}>{'Minimalist Chess'}</AppHeading>
         <InfoBox id={'level-indicator'}>
-            <h2 className='h3'>{'Level'}</h2>
-            <p className='h3'>{`${props.level}`}</p>
+            <InfoBoxHeading>{'Level'}</InfoBoxHeading>
+            <InfoBoxValue>{`${props.level}`}</InfoBoxValue>
         </InfoBox>
     </StyledHeader>
 );

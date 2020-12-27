@@ -1,7 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import ModalHeader from './ModalHeader';
 import ModalContainer from './ModalContainer';
+
+const StyledButton = styled.button`
+    background: none;
+    color: inherit;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 1rem;
+    font: inherit;
+    cursor: pointer;
+    outline: none !important;
+`;
+
+const ModalWrap = styled.div`
+`;
 
 const Modal = (props) => (
     <ModalContainer id={props.id}>
@@ -9,14 +24,14 @@ const Modal = (props) => (
             header={props.header}
             onClose={props.onClose}
         />
-        <div id={'modal-body'} className='modal-body'>
+        <ModalWrap id={'modal-body'}>
             {props.children}
-        </div>
-        <div className='modal-footer'>
-            <button id={'modal-action'} className='btn btn-primary' onClick={props.action}>
+        </ModalWrap>
+        <ModalWrap>
+            <StyledButton id={'modal-action'} onClick={props.action}>
                 {props.actionText}
-            </button>
-        </div>
+            </StyledButton>
+        </ModalWrap>
     </ModalContainer>
 );
 

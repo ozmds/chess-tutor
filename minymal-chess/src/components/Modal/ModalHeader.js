@@ -1,13 +1,31 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+const StyledButton = styled.button`
+    background: none;
+    color: inherit;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 1rem;
+    font: inherit;
+    cursor: pointer;
+    outline: none !important;
+`;
+
+const ModalHeading = styled.h5`
+`;
+
+const ModalHeaderContainer = styled.div`
+`;
+
 const ModalHeader = (props) => (
-    <div className='modal-header'>
-        <h5 className='modal-title'>{props.header}</h5>
-        <button className='close' onClick={props.onClose}>
-            <span>{'X'}</span>
-        </button>
-    </div>
+    <ModalHeaderContainer>
+        <ModalHeading>{props.header}</ModalHeading>
+        <StyledButton onClick={props.onClose}>
+            {'X'}
+        </StyledButton>
+    </ModalHeaderContainer>
 );
 
 ModalHeader.propTypes = {
