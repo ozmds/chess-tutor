@@ -1,14 +1,35 @@
 import React from 'react';
 import { Flipped } from 'react-flip-toolkit';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import isLightTile from '../../scripts/isLightTile';
 
 import circle from '../../static/circle.svg';
 import targetCircle from '../../static/target_circle.svg';
-import getPiece from './scripts/library';
-import {
-    StyledSquare, TargetCircle, ChessPiece
-} from './styled';
+import getPiece from '../../scripts/library';
 import { TransparentButton } from '../core/Button';
+
+const StyledSquare = styled.div`
+    width: 12.5%;
+    height: 12.5%;
+    position: relative;
+    background-color: ${(props) => (isLightTile(props.id) ? 'cornsilk' : '#b5721d')};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const ChessPiece = styled.img`
+    width: 70%;
+    position: relative;
+    z-index: 2;
+`;
+
+const TargetCircle = styled.img`
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+`;
 
 const Square = (props) => {
     if (props.pieceID !== null) {

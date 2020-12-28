@@ -2,9 +2,9 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import initBoard from './scripts/initBoard';
-import updateBoard from './scripts/updateBoard';
-import { getMoveCountFromFen } from './scripts/boardConversion';
+import initBoard from '../../scripts/initBoard';
+import updateBoard from '../../scripts/updateBoard';
+import { getMoveCountFromFen } from '../../scripts/boardConversion';
 import PureBoard from './PureBoard';
 import PawnPromotionModal from '../Screens/PawnPromotionModal';
 

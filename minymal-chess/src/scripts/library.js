@@ -1,17 +1,17 @@
 /* eslint-disable no-multi-spaces */
 
-import blackPawn from '../../../static/black_pawn.svg';
-import blackBishop from '../../../static/black_bishop.svg';
-import blackKnight from '../../../static/black_knight.svg';
-import blackRook from '../../../static/black_rook.svg';
-import blackQueen from '../../../static/black_queen.svg';
-import blackKing from '../../../static/black_king.svg';
-import whitePawn from '../../../static/white_pawn.svg';
-import whiteBishop from '../../../static/white_bishop.svg';
-import whiteKnight from '../../../static/white_knight.svg';
-import whiteRook from '../../../static/white_rook.svg';
-import whiteQueen from '../../../static/white_queen.svg';
-import whiteKing from '../../../static/white_king.svg';
+import blackPawn from '../static/black_pawn.svg';
+import blackBishop from '../static/black_bishop.svg';
+import blackKnight from '../static/black_knight.svg';
+import blackRook from '../static/black_rook.svg';
+import blackQueen from '../static/black_queen.svg';
+import blackKing from '../static/black_king.svg';
+import whitePawn from '../static/white_pawn.svg';
+import whiteBishop from '../static/white_bishop.svg';
+import whiteKnight from '../static/white_knight.svg';
+import whiteRook from '../static/white_rook.svg';
+import whiteQueen from '../static/white_queen.svg';
+import whiteKing from '../static/white_king.svg';
 
 const pieces = [
     { key: 'p', name: 'black pawn',   image: blackPawn   },

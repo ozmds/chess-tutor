@@ -1,7 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { StyledHeader, InfoBox } from './styled';
+
+const StyledHeader = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+    max-width: 60vh;
+    padding: 0.5rem;
+`;
+
+const InfoBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    flex-basis: 0;
+`;
 
 const AppHeading = styled.h1`
     text-align: center;

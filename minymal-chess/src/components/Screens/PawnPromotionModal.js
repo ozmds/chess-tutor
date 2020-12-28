@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Modal from '../core/Modal';
 import { Button } from '../core/Button';
-import getPiece from '../Square/scripts/library';
+import getPiece from '../../scripts/library';
 
 const ModalHeadingText = styled.h4`
     font-weight: normal;
