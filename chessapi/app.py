@@ -33,6 +33,7 @@ class CPUMove(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('fen', type=str, required=True)
+        self.parser.add_argument('level', type=int, required=True)
 
     def put(self):
         args = self.parser.parse_args()

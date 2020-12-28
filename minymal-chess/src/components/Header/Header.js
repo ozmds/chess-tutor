@@ -6,14 +6,20 @@ import { StyledHeader, InfoBox } from './styled';
 const AppHeading = styled.h1`
     text-align: center;
     padding: 0.5rem;
+    font-weight: 400;
+    margin: 0rem;
 `;
 
 const InfoBoxHeading = styled.h2`
-    font-size: 1.17em;
+    font-size: 1.5em;
+    margin: 0rem;
+    font-weight: 400;
 `;
 
 const InfoBoxValue = styled.p`
-    font-size: 1.17em;
+    font-size: 1.5em;
+    margin: 0.5rem;
+    font-weight: 400;
 `;
 
 const Header = (props) => (

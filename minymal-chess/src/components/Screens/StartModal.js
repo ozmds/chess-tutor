@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Modal from '../Modal/Modal';
-import OptionButton from '../Modal/ModalOption';
+import Modal from '../core/Modal';
+import { Button } from '../core/Button';
 
 const ModalHeadingText = styled.h4`
+    font-weight: normal;
+    width: 100%;
+    margin: 0rem;
+`;
+
+const SelectButton = styled(Button)`
+    flex: 1;
+    margin: 1rem;
 `;
 
 class StartModal extends Component {
@@ -27,47 +35,47 @@ class StartModal extends Component {
                 actionText={'Start'}
             >
                 <ModalHeadingText>{'Choose a Colour'}</ModalHeadingText>
-                <OptionButton
-                    backgroundColour='btn-light'
+                <SelectButton
+                    colour='#A8B0D1'
                     id={'player-white'}
                     onClick={() => this.setState({ playerColour: 'white' })}
                     selected={this.state.playerColour === 'white'}
                 >
                     {'White'}
-                </OptionButton>
-                <OptionButton
-                    backgroundColour='btn-dark'
+                </SelectButton>
+                <SelectButton
+                    colour='#A8B0D1'
                     id={'player-black'}
                     onClick={() => this.setState({ playerColour: 'black' })}
                     selected={this.state.playerColour === 'black'}
                 >
                     {'Black'}
-                </OptionButton>
+                </SelectButton>
                 <ModalHeadingText>{'Choose A Difficulty'}</ModalHeadingText>
-                <OptionButton
-                    backgroundColour='btn-secondary'
+                <SelectButton
+                    colour='#A8B0D1'
                     id={'computer-1'}
                     onClick={() => this.setState({ computerLevel: 1 })}
                     selected={this.state.computerLevel === 1}
                 >
                     {'1'}
-                </OptionButton>
-                <OptionButton
-                    backgroundColour='btn-secondary'
+                </SelectButton>
+                <SelectButton
+                    colour='#A8B0D1'
                     id={'computer-2'}
                     onClick={() => this.setState({ computerLevel: 2 })}
                     selected={this.state.computerLevel === 2}
                 >
                     {'2'}
-                </OptionButton>
-                <OptionButton
-                    backgroundColour='btn-secondary'
+                </SelectButton>
+                <SelectButton
+                    colour='#A8B0D1'
                     id={'computer-3'}
                     onClick={() => this.setState({ computerLevel: 3 })}
                     selected={this.state.computerLevel === 3}
                 >
                     {'3'}
-                </OptionButton>
+                </SelectButton>
             </Modal>
         );
     }

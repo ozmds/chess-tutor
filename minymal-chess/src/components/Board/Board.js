@@ -118,7 +118,8 @@ class Board extends Component {
 
     computerMove = () => {
         axios.put(`${API_URL}/chess/api/cpumove`, {
-            fen: this.state.fen
+            fen: this.state.fen,
+            level: this.props.level
         }).then((res) => {
             this.updateBoard(res.data.fen, res.data.game_over, res.data.moves);
         });

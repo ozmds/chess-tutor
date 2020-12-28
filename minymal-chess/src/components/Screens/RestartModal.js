@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../Modal/Modal';
+import Modal from '../core/Modal';
 import getMessage from './scripts/getMessage';
 
 const RestartModal = (props) => (

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Modal from '../Modal/Modal';
-import OptionButton from '../Modal/ModalOption';
+import Modal from '../core/Modal';
+import { Button } from '../core/Button';
 import getPiece from '../Square/scripts/library';
 
 const ModalHeadingText = styled.h4`
+    font-weight: normal;
+    width: 100%;
+    margin: 0rem;
 `;
 
 const FlexContainer = styled.div`
@@ -14,6 +17,11 @@ const FlexContainer = styled.div`
 
 const PieceImage = styled.img`
     width: 100%;
+`;
+
+const SelectButton = styled(Button)`
+    flex: 1;
+    margin: 1rem;
 `;
 
 class PawnPromotionModal extends Component {
@@ -51,38 +59,38 @@ class PawnPromotionModal extends Component {
             >
                 <ModalHeadingText>{'Choose a Piece'}</ModalHeadingText>
                 <FlexContainer>
-                    <OptionButton
-                        backgroundColour='btn-light'
+                    <SelectButton
+                        colour='#A8B0D1'
                         id={'promotion-queen'}
                         onClick={() => this.setState({ selectedPiece: 'q' })}
                         selected={this.state.selectedPiece === 'q'}
                     >
                         {this.getPieceImage('q')}
-                    </OptionButton>
-                    <OptionButton
-                        backgroundColour='btn-light'
+                    </SelectButton>
+                    <SelectButton
+                        colour='#A8B0D1'
                         id={'promotion-bishop'}
                         onClick={() => this.setState({ selectedPiece: 'b' })}
                         selected={this.state.selectedPiece === 'b'}
                     >
                         {this.getPieceImage('b')}
-                    </OptionButton>
-                    <OptionButton
-                        backgroundColour='btn-light'
+                    </SelectButton>
+                    <SelectButton
+                        colour='#A8B0D1'
                         id={'promotion-knight'}
                         onClick={() => this.setState({ selectedPiece: 'n' })}
                         selected={this.state.selectedPiece === 'n'}
                     >
                         {this.getPieceImage('n')}
-                    </OptionButton>
-                    <OptionButton
-                        backgroundColour='btn-light'
+                    </SelectButton>
+                    <SelectButton
+                        colour='#A8B0D1'
                         id={'promotion-rook'}
                         onClick={() => this.setState({ selectedPiece: 'r' })}
                         selected={this.state.selectedPiece === 'r'}
                     >
                         {this.getPieceImage('r')}
-                    </OptionButton>
+                    </SelectButton>
                 </FlexContainer>
             </Modal>
         );
