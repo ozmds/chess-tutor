@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-const StyledHeader = styled.div`
+const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -21,18 +21,37 @@ const InfoBox = styled.div`
     flex-basis: 0;
 `;
 
+const PageHeader = styled.h1`
+    text-align: center;
+    padding: 0.5rem;
+    font-weight: 400;
+    margin: 0rem;
+`;
+
+const InfoBoxHeader = styled.h2`
+    font-size: 1.5em;
+    margin: 0rem;
+    font-weight: 400;
+`;
+
+const InfoBoxValue = styled.p`
+    font-size: 1.5em;
+    margin: 0.5rem;
+    font-weight: 400;
+`;
+
 const Header = (props) => (
-    <StyledHeader>
+    <Container>
         <InfoBox id={'move-counter'}>
-            <h2 className='h3'>{'Move'}</h2>
-            <p className='h3'>{props.moveCount}</p>
+            <InfoBoxHeader>{'Move'}</InfoBoxHeader>
+            <InfoBoxValue>{props.moveCount}</InfoBoxValue>
         </InfoBox>
-        <h1 id={'header'} style={{ textAlign: 'center', padding: '0.5rem' }}>{'Minimalist Chess'}</h1>
+        <PageHeader id={'header'}>{'Minimalist Chess'}</PageHeader>
         <InfoBox id={'level-indicator'}>
-            <h2 className='h3'>{'Level'}</h2>
-            <p className='h3'>{`${props.level}`}</p>
+            <InfoBoxHeader>{'Level'}</InfoBoxHeader>
+            <InfoBoxValue>{`${props.level}`}</InfoBoxValue>
         </InfoBox>
-    </StyledHeader>
+    </Container>
 );
 
 Header.propTypes = {

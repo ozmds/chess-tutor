@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../Modal/Modal';
-import OptionButton from '../Modal/ModalOption';
+import styled from 'styled-components';
+import Modal from '../core/Modal';
+import { Button } from '../core/Button';
+
+const Header = styled.h4`
+    font-weight: normal;
+    width: 100%;
+    margin: 0rem;
+`;
+
+const OptionButton = styled(Button)`
+    flex: 1;
+    margin: 1rem;
+`;
 
 class StartModal extends Component {
     constructor(props) {
@@ -22,48 +34,30 @@ class StartModal extends Component {
                 action={() => this.props.startGame(playerColour, computerLevel)}
                 actionText={'Start'}
             >
-                <h4>{'Choose a Colour'}</h4>
-                <OptionButton
-                    backgroundColour='btn-light'
-                    id={'player-white'}
-                    onClick={() => this.setState({ playerColour: 'white' })}
-                    selected={this.state.playerColour === 'white'}
-                >
-                    {'White'}
-                </OptionButton>
-                <OptionButton
-                    backgroundColour='btn-dark'
-                    id={'player-black'}
-                    onClick={() => this.setState({ playerColour: 'black' })}
-                    selected={this.state.playerColour === 'black'}
-                >
-                    {'Black'}
-                </OptionButton>
-                <h4>{'Choose A Difficulty'}</h4>
-                <OptionButton
-                    backgroundColour='btn-secondary'
-                    id={'computer-1'}
-                    onClick={() => this.setState({ computerLevel: 1 })}
-                    selected={this.state.computerLevel === 1}
-                >
-                    {'1'}
-                </OptionButton>
-                <OptionButton
-                    backgroundColour='btn-secondary'
-                    id={'computer-2'}
-                    onClick={() => this.setState({ computerLevel: 2 })}
-                    selected={this.state.computerLevel === 2}
-                >
-                    {'2'}
-                </OptionButton>
-                <OptionButton
-                    backgroundColour='btn-secondary'
-                    id={'computer-3'}
-                    onClick={() => this.setState({ computerLevel: 3 })}
-                    selected={this.state.computerLevel === 3}
-                >
-                    {'3'}
-                </OptionButton>
+                <Header>{'Choose a Colour'}</Header>
+                {['white', 'black'].map((colour) => (
+                    <OptionButton
+                        key={colour}
+                        colour='#A8B0D1'
+                        id={`player-${colour}`}
+                        onClick={() => this.setState({ playerColour: colour })}
+                        selected={this.state.playerColour === colour}
+                    >
+                        {colour}
+                    </OptionButton>
+                ))}
+                <Header>{'Choose A Difficulty'}</Header>
+                {[1, 2, 3].map((level) => (
+                    <OptionButton
+                        key={level}
+                        colour='#A8B0D1'
+                        id={`computer-${level}`}
+                        onClick={() => this.setState({ computerLevel: level })}
+                        selected={this.state.computerLevel === level}
+                    >
+                        {level}
+                    </OptionButton>
+                ))}
             </Modal>
         );
     }

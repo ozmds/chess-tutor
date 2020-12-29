@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
-import styled from 'styled-components';
-/* import { Flipper } from 'react-flip-toolkit'; */
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Flipper } from 'react-flip-toolkit';
 
 import Square from '../Square/Square';
 
-const StyledBoardSection = styled.div`
+const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,7 +13,7 @@ const StyledBoardSection = styled.div`
     width: 100%;
 `;
 
-const StyledSquare = styled.div`
+const Container = styled.div`
     position: relative;
     width: 100%;
     max-width: 60vh;
@@ -43,8 +43,8 @@ class PureBoard extends PureComponent {
     render() {
         const { ranks, files } = this.props;
         return (
-            <StyledBoardSection>
-                <StyledSquare id={'board'}>
+            <Wrapper>
+                <Container id={'board'}>
                     <StyledFlipper flipKey={`${this.props.fen}${this.props.files.join('')}`}>
                         {this.props.board.flat().map((piece, index) => {
                             const rindex = Math.floor(index / 8);
@@ -60,8 +60,8 @@ class PureBoard extends PureComponent {
                             );
                         })}
                     </StyledFlipper>
-                </StyledSquare>
-            </StyledBoardSection>
+                </Container>
+            </Wrapper>
         );
     }
 }

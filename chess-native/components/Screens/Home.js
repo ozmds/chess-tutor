@@ -1,29 +1,28 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
-
 import Board from '../Board/Board';
-import RestartModal from './RestartModal';
 import StartModal from './StartModal';
-import WelcomeModal from './WelcomeModal';
 import Header from '../Header/Header';
+import { Button } from '../core/Button';
+import Modal from '../core/Modal';
+import getMessage from '../../scripts/getMessage';
 
-const StyledHome = styled(View)`
+const Container = styled.div`
+    min-height: 100vh;    
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    min-height: 100vh;
-    font-family: 'Redressed', serif;
-    font-size: 1rem;
     @media (max-width: 415px) {
         justify-content: space-evenly;
     }
+    font-family: 'Redressed', serif;
+    font-size: 1rem;
 `;
 
 const Home = (props) => (
-    <StyledHome>
+    <Container>
         <Header
             moveCount={props.moveCount}
             level={props.level}
@@ -35,22 +34,30 @@ const Home = (props) => (
             playerColour={props.playerColour}
             setMoveCount={props.setMoveCount}
         />
-        <button id={'restart'} className='btn btn-primary' onClick={() => props.setGamePaused('restart')}>
+        <Button colour={'#A8B0D1'} id={'restart'} onClick={() => props.setGamePaused('restart')}>
             {'Restart Game'}
-        </button>
+        </Button>
         {props.gamePaused.startsWith('gameover')
-            && <RestartModal
-                gameOver={props.gamePaused.replace('gameover_', '')}
+            && <Modal
+                id={'restart-modal'}
+                header={props.gamePaused.replace('gameover_', '') ? 'Game Over' : 'Restart'}
                 onClose={() => props.setGamePaused('start')}
-                restartGame={() => props.setGamePaused('start')}
-            />
+                action={() => props.setGamePaused('start')}
+                actionText={'Restart Game'}
+            >
+                {getMessage(props.gamePaused.replace('gameover_', ''))}
+            </Modal>
         }
         {props.gamePaused === 'restart'
-            && <RestartModal
-                gameOver={props.gamePaused}
+            && <Modal
+                id={'restart-modal'}
+                header={props.gamePaused ? 'Game Over' : 'Restart'}
                 onClose={() => props.setGamePaused('')}
-                restartGame={() => props.setGamePaused('start')}
-            />
+                action={() => props.setGamePaused('start')}
+                actionText={'Restart Game'}
+            >
+                {getMessage(props.gamePaused)}
+            </Modal>
         }
         {props.gamePaused === 'start'
             && <StartModal
@@ -59,11 +66,20 @@ const Home = (props) => (
             />
         }
         {props.welcome === true
-            && <WelcomeModal
+            && <Modal
+                id={'welcome-modal'}
+                header={'Welcome to Minimalist Chess'}
                 onClose={() => props.setWelcome(false)}
-            />
+                action={() => props.setWelcome(false)}
+                actionText={"Let's Start"}
+            >
+                {"We believe that the way to get better at anything is to just do it, and \
+                chess is no different. So what we've created a game of chess that will give you helpful indicators \
+                about how you can improve your game, all while you are playing an actual games. No puzzle, no hypotheticals. \
+                Get ready to be a better chess player, we hope it doesn't go to your head."}
+            </Modal>
         }
-    </StyledHome>
+    </Container>
 );
 
 Home.propTypes = {
