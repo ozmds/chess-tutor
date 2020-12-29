@@ -9,7 +9,7 @@ import targetCircle from '../../static/target_circle.svg';
 import getPiece from '../../scripts/library';
 import { TransparentButton } from '../core/Button';
 
-const StyledSquare = styled.div`
+const Container = styled.div`
     width: 12.5%;
     height: 12.5%;
     position: relative;
@@ -19,13 +19,13 @@ const StyledSquare = styled.div`
     justify-content: center;
 `;
 
-const ChessPiece = styled.img`
+const Piece = styled.img`
     width: 70%;
     position: relative;
     z-index: 2;
 `;
 
-const TargetCircle = styled.img`
+const Target = styled.img`
     position: absolute;
     width: 100%;
     z-index: 1;
@@ -35,28 +35,28 @@ const Square = (props) => {
     if (props.pieceID !== null) {
         const piece = getPiece(props.pieceID);
         return (
-            <StyledSquare id={props.squareID}>
+            <Container id={props.squareID}>
                 {props.moves.includes(props.squareID)
-                    && <TargetCircle src={targetCircle} alt={'target circle'} />
+                    && <Target src={targetCircle} alt={'target circle'} />
                 }
                 <Flipped flipId={props.pieceID}>
                     <TransparentButton onClick={() => props.selectSquare(props.squareID, props.pieceID[0])}>
-                        <ChessPiece src={piece.image} alt={piece.name} />
+                        <Piece src={piece.image} alt={piece.name} />
                     </TransparentButton>
                 </Flipped>
-            </StyledSquare>
+            </Container>
         );
     }
     if (props.moves.includes(props.squareID)) {
         return (
-            <StyledSquare id={props.squareID}>
+            <Container id={props.squareID}>
                 <TransparentButton onClick={() => props.selectSquare(props.squareID)}>
-                    <ChessPiece src={circle} alt={'circle'} />
+                    <Piece src={circle} alt={'circle'} />
                 </TransparentButton>
-            </StyledSquare>
+            </Container>
         );
     }
-    return <StyledSquare id={props.squareID} />;
+    return <Container id={props.squareID} />;
 };
 
 Square.propTypes = {

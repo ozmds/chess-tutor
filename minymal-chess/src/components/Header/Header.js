@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const StyledHeader = styled.div`
+const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -21,14 +21,14 @@ const InfoBox = styled.div`
     flex-basis: 0;
 `;
 
-const AppHeading = styled.h1`
+const PageHeader = styled.h1`
     text-align: center;
     padding: 0.5rem;
     font-weight: 400;
     margin: 0rem;
 `;
 
-const InfoBoxHeading = styled.h2`
+const InfoBoxHeader = styled.h2`
     font-size: 1.5em;
     margin: 0rem;
     font-weight: 400;
@@ -41,17 +41,17 @@ const InfoBoxValue = styled.p`
 `;
 
 const Header = (props) => (
-    <StyledHeader>
+    <Container>
         <InfoBox id={'move-counter'}>
-            <InfoBoxHeading>{'Move'}</InfoBoxHeading>
+            <InfoBoxHeader>{'Move'}</InfoBoxHeader>
             <InfoBoxValue>{props.moveCount}</InfoBoxValue>
         </InfoBox>
-        <AppHeading id={'header'}>{'Minimalist Chess'}</AppHeading>
+        <PageHeader id={'header'}>{'Minimalist Chess'}</PageHeader>
         <InfoBox id={'level-indicator'}>
-            <InfoBoxHeading>{'Level'}</InfoBoxHeading>
+            <InfoBoxHeader>{'Level'}</InfoBoxHeader>
             <InfoBoxValue>{`${props.level}`}</InfoBoxValue>
         </InfoBox>
-    </StyledHeader>
+    </Container>
 );
 
 Header.propTypes = {

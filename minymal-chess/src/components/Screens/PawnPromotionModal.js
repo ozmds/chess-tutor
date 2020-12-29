@@ -5,21 +5,21 @@ import Modal from '../core/Modal';
 import { Button } from '../core/Button';
 import getPiece from '../../scripts/library';
 
-const ModalHeadingText = styled.h4`
+const Header = styled.h4`
     font-weight: normal;
     width: 100%;
     margin: 0rem;
 `;
 
-const FlexContainer = styled.div`
+const Container = styled.div`
     display: flex;
 `;
 
-const PieceImage = styled.img`
+const Piece = styled.img`
     width: 100%;
 `;
 
-const SelectButton = styled(Button)`
+const OptionButton = styled(Button)`
     flex: 1;
     margin: 1rem;
 `;
@@ -37,7 +37,7 @@ class PawnPromotionModal extends Component {
         if (this.props.playerColour === 'white') {
             piece = pieceKey.toUpperCase();
         }
-        return <PieceImage src={getPiece(piece).image} alt={getPiece(piece).name} />;
+        return <Piece src={getPiece(piece).image} alt={getPiece(piece).name} />;
     }
 
     promotePawn = () => {
@@ -57,41 +57,20 @@ class PawnPromotionModal extends Component {
                 action={this.promotePawn}
                 actionText={'Select'}
             >
-                <ModalHeadingText>{'Choose a Piece'}</ModalHeadingText>
-                <FlexContainer>
-                    <SelectButton
-                        colour='#A8B0D1'
-                        id={'promotion-queen'}
-                        onClick={() => this.setState({ selectedPiece: 'q' })}
-                        selected={this.state.selectedPiece === 'q'}
-                    >
-                        {this.getPieceImage('q')}
-                    </SelectButton>
-                    <SelectButton
-                        colour='#A8B0D1'
-                        id={'promotion-bishop'}
-                        onClick={() => this.setState({ selectedPiece: 'b' })}
-                        selected={this.state.selectedPiece === 'b'}
-                    >
-                        {this.getPieceImage('b')}
-                    </SelectButton>
-                    <SelectButton
-                        colour='#A8B0D1'
-                        id={'promotion-knight'}
-                        onClick={() => this.setState({ selectedPiece: 'n' })}
-                        selected={this.state.selectedPiece === 'n'}
-                    >
-                        {this.getPieceImage('n')}
-                    </SelectButton>
-                    <SelectButton
-                        colour='#A8B0D1'
-                        id={'promotion-rook'}
-                        onClick={() => this.setState({ selectedPiece: 'r' })}
-                        selected={this.state.selectedPiece === 'r'}
-                    >
-                        {this.getPieceImage('r')}
-                    </SelectButton>
-                </FlexContainer>
+                <Header>{'Choose a Piece'}</Header>
+                <Container>
+                    {[['queen', 'q'], ['bishop', 'b'], ['knight', 'n'], ['rook', 'r']].map((piece) => (
+                        <OptionButton
+                            key={piece[0]}
+                            colour='#A8B0D1'
+                            id={`promotion-${piece[0]}`}
+                            onClick={() => this.setState({ selectedPiece: piece[1] })}
+                            selected={this.state.selectedPiece === piece[1]}
+                        >
+                            {this.getPieceImage(piece[1])}
+                        </OptionButton>
+                    ))}
+                </Container>
             </Modal>
         );
     }
