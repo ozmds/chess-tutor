@@ -3,7 +3,7 @@ from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 from waitress import serve
 from updateboard import (
-    init_board, update_with_player_move, update_with_random_move
+    init_board, update_with_player_move, update_with_computer_move
 )
 
 app = Flask(__name__)
@@ -38,7 +38,8 @@ class CPUMove(Resource):
     def put(self):
         args = self.parser.parse_args()
         fen = args['fen']
-        return update_with_random_move(fen)
+        level = args['level']
+        return update_with_computer_move(fen, level)
 
 
 api.add_resource(InitBoard, '/chess/api/initboard')
