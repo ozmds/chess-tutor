@@ -7,5 +7,5 @@ flake8==3.7.9
 pep8-naming==0.10.0
 flake8-lineleak==1.0.2
 flake8-quotes==3.0.0
-waitress==1.4.4
+waitress==2.1.1
 pytest==6.2.1
